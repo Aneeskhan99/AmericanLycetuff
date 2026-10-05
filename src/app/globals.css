@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/*
+ * American Lycetuff design tokens (from Figma file pbpZcoVr2IirBWvcfM9Lpk)
+ * Desktop frames are 1920px wide, mobile frames are 390px wide.
+ */
+@theme {
+  --color-navy: #1a2d59;          /* primary buttons, top bar */
+  --color-navy-deep: #00274c;     /* desktop footer */
+  --color-navy-ink: #081e3f;      /* mobile footer */
+  --color-crimson: #d31245;       /* accent headings / highlights */
+  --color-maroon: #773141;        /* footer border / dividers */
+  --color-line: #bdbdbd;          /* header bottom border */
+
+  --font-inter: var(--font-inter-var), ui-sans-serif, system-ui, sans-serif;
+  --font-open-sans: var(--font-open-sans-var), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter);
+
+  /* Desktop nav switches on at 1280px; below that the mobile header is used. */
+  --breakpoint-nav: 80rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-inter);
+}
+
+/* Centered 1920 frame with the side gutter used across the desktop design */
+@utility frame {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+}
+
+@utility gutter {
+  padding-inline: 24px;
+  @media (width >= 64rem) {
+    padding-inline: clamp(40px, 7.76vw, 149px);
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
