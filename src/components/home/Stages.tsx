@@ -40,7 +40,9 @@ export default function Stages({ content: c }: { content: HomeContent["stages"] 
                         alt={s.photo.alt}
                         unoptimized={unoptimized(s.photo.src)}
                         fill
-                        sizes="(min-width: 1024px) 328px, (min-width: 768px) 45vw, 100vw"
+                        // The landscape photo is cropped to a square, so it is drawn about 1.5x wider than the card.
+                        sizes="(min-width: 1024px) 500px, (min-width: 768px) 45vw, 100vw"
+                        quality={85}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     )}

@@ -22,7 +22,7 @@ export default function ClosingCta({ content: c }: Props) {
         )}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,30,63,0.95)_0%,rgba(8,30,63,0.8)_60%,rgba(8,30,63,0.45)_100%)]" />
       </div>
-      <div className="frame gutter relative py-[64px] lg:pb-[145px] lg:pt-[130px]">
+      <div className="frame gutter relative pb-[87px] pt-[64px] lg:pb-[145px] lg:pt-[130px]">
         <div className="mx-auto flex max-w-[1498px] flex-col items-center text-center lg:items-start lg:text-left">
           <h2
             id="stem-cta-heading"

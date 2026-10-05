@@ -36,11 +36,11 @@ export const stemRoboticsPage = definePage({
         photoTop: f.image("Small photo (top right)", {
           src: "/images/stem/hero-programming-lab.jpg",
           alt: "Students working at computers in the robotics and programming lab",
-        }),
+        }, { hint: "Shown on large screens only; phones show just the large photo." }),
         photoBottom: f.image("Tall photo (bottom right)", {
           src: "/images/stem/hero-robotics-lab-student.jpg",
           alt: "A student in a blue cap smiling outside the robotics laboratory",
-        }),
+        }, { hint: "Shown on large screens only; phones show just the large photo." }),
       },
     },
     why: {
@@ -110,7 +110,7 @@ export const stemRoboticsPage = definePage({
             group2Label: f.text("Second tag group: label", "", { max: 40 }),
             group2Chips: f.textarea("Second tag group: tags", "", { rows: 5, hint: LINES_HINT }),
             photo: f.image("Photo", { src: "", alt: "" }),
-            photoNote: f.textarea("Photo note", "", { rows: 2, max: 160, hint: "Leave empty to hide the note card." }),
+            photoNote: f.textarea("Photo note", "", { rows: 2, max: 160, hint: "Shown on large screens only. Leave empty to hide the note card." }),
           },
           [
             {

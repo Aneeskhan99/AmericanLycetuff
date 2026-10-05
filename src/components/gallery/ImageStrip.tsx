@@ -12,7 +12,7 @@ const SLOTS = [
   { w: "lg:w-[480px]", h: "h-[271px]", offset: "lg:mt-0", gap: "mb-[16px]" },
   { w: "lg:w-[620px]", h: "h-[212px]", offset: "lg:mt-[40px]", gap: "mb-[26px]" },
   { w: "lg:w-[400px]", h: "h-[325px]", offset: "lg:mt-0", gap: "mb-[20px]" },
-  { w: "lg:w-[560px]", h: "h-[232px]", offset: "lg:mt-[40px]", gap: "mb-[26px]" },
+  { w: "lg:w-[560px]", h: "h-[232px]", offset: "lg:mt-[40px]", gap: "mb-[58px]" },
   { w: "lg:w-[440px]", h: "h-[295px]", offset: "lg:mt-0", gap: "mb-[16px]" },
   { w: "lg:w-[500px]", h: "h-[260px]", offset: "lg:mt-[40px]", gap: "mb-[16px]" },
 ];

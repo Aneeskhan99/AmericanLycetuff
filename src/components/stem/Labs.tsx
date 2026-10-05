@@ -95,7 +95,7 @@ function LabSection({ lab }: { lab: Lab }) {
     <section id={lab.id} aria-labelledby={`${lab.id}-heading`} className={`${lab.bg} scroll-mt-[120px] text-white`}>
       <div
         className={`frame relative flex flex-col overflow-hidden px-[24px] lg:grid lg:min-h-[calc(800*var(--u))] lg:grid-cols-2 lg:p-0 ${
-          wFirst ? "pb-[32px]" : "py-[56px]"
+          wFirst ? "pb-[72px] pt-[40px]" : "py-[56px]"
         }`}
       >
         {/* Photo half */}
@@ -112,7 +112,7 @@ function LabSection({ lab }: { lab: Lab }) {
           <p
             aria-hidden
             className={`w-full text-center text-[36px] font-bold uppercase leading-[40px] tracking-[-1.1077px] lg:pointer-events-none lg:absolute lg:top-[calc(-30*var(--u))] lg:w-auto lg:whitespace-nowrap lg:text-left lg:text-[calc(260*var(--u))] lg:leading-[1.21] lg:tracking-[calc(-8*var(--u))] lg:z-[1] lg:order-none lg:opacity-[0.07] ${lab.watermarkLeft} ${
-              wFirst ? "order-1" : "order-3 mt-[32px] lg:mt-0"
+              wFirst ? "order-1" : "order-3 mt-[64px] lg:mt-0"
             }`}
           >
             {lab.watermark}
@@ -122,9 +122,7 @@ function LabSection({ lab }: { lab: Lab }) {
         {/* "Photo to be added" note card from the design */}
         {lab.photoNote && (
           <div
-            className={`relative flex h-[210px] w-full flex-col items-center justify-center gap-[8px] border-8 border-white bg-[#173054] px-[16px] text-center lg:absolute lg:bottom-[calc(60*var(--u))] lg:z-[2] lg:order-none lg:w-[300px] ${lab.noteLeft} ${
-              wFirst ? "order-4 mt-[64px] lg:mt-0" : "order-2 mt-[32px] lg:mt-0"
-            }`}
+            className={`relative hidden h-[210px] flex-col items-center justify-center gap-[8px] border-8 border-white bg-[#173054] px-[16px] text-center lg:absolute lg:bottom-[calc(60*var(--u))] lg:z-[2] lg:flex lg:w-[300px] ${lab.noteLeft}`}
           >
             {lab.photoNoteLabel && (
               <p className="text-[13px] font-semibold uppercase leading-[16px] tracking-[2.5px] text-[#fd0] lg:text-[11px] lg:leading-[13px]">

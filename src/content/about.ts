@@ -195,7 +195,7 @@ export const aboutPage = definePage({
       description: "Full-width photo banner at the bottom of the page.",
       fields: {
         eyebrow: f.text("Small yellow label", "Be a part of something larger", { max: 60 }),
-        heading: f.text("Heading", "70+ Campuses, One Standard", { max: 100, hint: HEADING_HINT }),
+        heading: f.text("Heading", "70+ Campuses,\nOne Standard", { max: 100, hint: HEADING_HINT }),
         text: f.textarea(
           "Text",
           "Being part of a national network means shared curriculum support, teacher mentoring, and quality standards, while each campus stays rooted in its own community.",

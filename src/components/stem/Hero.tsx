@@ -56,7 +56,7 @@ export default function Hero({ content: c }: Props) {
           )}
 
           {/* Photo collage */}
-          <div className="mt-[32px] flex flex-col lg:relative lg:col-start-2 lg:row-start-1 lg:mr-[calc(-10*var(--u))] lg:mt-0 lg:h-[calc(620*var(--u))] lg:w-[calc(675*var(--u))]">
+          <div className="mb-[32px] mt-[32px] flex flex-col lg:relative lg:mb-0 lg:col-start-2 lg:row-start-1 lg:mr-[calc(-10*var(--u))] lg:mt-0 lg:h-[calc(620*var(--u))] lg:w-[calc(675*var(--u))]">
             <div
               aria-hidden
               className="hidden bg-crimson lg:absolute lg:left-0 lg:top-[calc(52*var(--u))] lg:block lg:h-[calc(560*var(--u))] lg:w-[calc(400*var(--u))]"
@@ -73,8 +73,8 @@ export default function Hero({ content: c }: Props) {
               </div>
             </div>
 
-            <div className="mt-[32px] px-[24px] pb-[28px] pt-[20px] lg:absolute lg:left-[calc(425*var(--u))] lg:top-0 lg:mt-0 lg:h-[calc(190*var(--u))] lg:w-[calc(250*var(--u))] lg:p-0">
-              <div className="relative h-[190px] overflow-hidden lg:h-full">
+            <div className="hidden lg:absolute lg:block lg:left-[calc(425*var(--u))] lg:top-0 lg:h-[calc(190*var(--u))] lg:w-[calc(250*var(--u))]">
+              <div className="relative overflow-hidden lg:h-full">
                 <CropImage
                   src={c.photoTop.src}
                   alt={c.photoTop.alt}
@@ -86,7 +86,7 @@ export default function Hero({ content: c }: Props) {
               </div>
             </div>
 
-            <div className="relative mt-[26px] h-[400px] border-[10px] border-navy-ink lg:absolute lg:left-[calc(425*var(--u))] lg:top-[calc(220*var(--u))] lg:mt-0 lg:h-[calc(400*var(--u))] lg:w-[calc(240*var(--u))]">
+            <div className="relative hidden border-[10px] border-navy-ink lg:absolute lg:left-[calc(425*var(--u))] lg:top-[calc(220*var(--u))] lg:block lg:h-[calc(400*var(--u))] lg:w-[calc(240*var(--u))]">
               {c.photoBottom.src && (
                 <Image
                   src={c.photoBottom.src}

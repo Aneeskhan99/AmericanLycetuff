@@ -48,7 +48,7 @@ export default function Hero({ eyebrow, title, intro, background, front, back }:
 
           <div className="mt-[20px] w-full text-center text-white lg:absolute lg:inset-x-0 lg:bottom-[min(5.104vw,98px)] lg:mt-0 lg:grid lg:grid-cols-[minmax(0,1fr)_min(430px,30vw)] lg:items-end lg:gap-x-[40px] lg:text-left">
             <div className="lg:pb-[min(1.9vw,36.5px)]">
-              <p className="text-[16px] font-medium uppercase leading-[25px] tracking-[1.7747px] text-[#fd0] lg:text-[17.13px] lg:leading-[21px] lg:tracking-[1.9px]">
+              <p className="py-[9px] text-[16px] font-medium uppercase leading-[25px] tracking-[1.7747px] text-[#fd0] lg:py-0 lg:text-[17.13px] lg:leading-[21px] lg:tracking-[1.9px]">
                 {eyebrow}
               </p>
               <h1
