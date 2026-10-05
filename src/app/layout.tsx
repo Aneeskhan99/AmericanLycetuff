@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   },
   description:
     "American Lycetuff DNK STEM School, Swabi Campus. Play Group through SSC and Cambridge, STEM and robotics labs, and admissions open for 2026–27.",
-  icons: { icon: "/images/shared/logo-crest.png" },
 };
 
 export const viewport: Viewport = {
