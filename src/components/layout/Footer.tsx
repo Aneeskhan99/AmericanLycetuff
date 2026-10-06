@@ -123,7 +123,7 @@ export default function Footer({ settings }: { settings: Settings }) {
               Newsletter
             </p>
             <h2 className="mt-[12px] font-inter text-[26px] leading-[33px] text-crimson nav:mt-[9px] nav:text-[clamp(28px,1.91vw,36.687px)] nav:leading-[43.087px]">
-              Stay up to date with what&apos;s happening at our Swabi campus
+              Stay up to date with what&apos;s happening at Swabi campus
             </h2>
             <NewsletterForm />
           </div>

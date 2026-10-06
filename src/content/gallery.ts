@@ -23,7 +23,7 @@ export const galleryPage = definePage({
       label: "Hero",
       fields: {
         eyebrow: f.text("Eyebrow", "Gallery", { max: 60 }),
-        title: f.text("Heading", "Life at Our Campus", { max: 80, hint: "Wrap a word in *stars* to highlight it." }),
+        title: f.text("Heading", "Life at Campus", { max: 80, hint: "Wrap a word in *stars* to highlight it." }),
         intro: f.textarea("Intro", "Assemblies, experiments, celebrations and everyday moments from our Swabi school.", { max: 240, rows: 2 }),
         background: f.image("Background photo", img("hero-science-lab-tour.jpg", "A guide showing students around a science exhibition")),
         front: f.image("Framed photo (front)", img("hero-students-yellow-caps.jpg", "A student in a yellow cap and green blazer standing with classmates")),

@@ -22,12 +22,12 @@ export default function Hero({ content: c }: { content: Content }) {
                 preload
                 quality={85}
                 sizes="(min-width: 1024px) 1700px, 100vw"
-                className="object-cover lg:left-[-2.545%]! lg:top-[-2.572%]! lg:h-[105.14%]! lg:w-[105.09%]! lg:max-w-none"
+                className="object-cover"
               />
             )}
             <div
               aria-hidden
-              className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,30,63,0.37)_0%,rgba(8,30,63,0.24)_55%,rgba(8,30,63,0.04)_100%)]"
+              className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,30,63,0.74)_0%,rgba(8,30,63,0.48)_55%,rgba(8,30,63,0.08)_100%)]"
             />
 
             <div className="relative flex w-full flex-col items-center text-center text-white lg:w-auto lg:items-start lg:gap-[26px] lg:text-left">

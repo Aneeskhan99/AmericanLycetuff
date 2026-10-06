@@ -1,22 +1,29 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { captureLanding } from "@/lib/public/tracking";
 
 type State = { kind: "idle" | "sending" | "ok" | "error"; text: string };
 
 /**
  * Footer newsletter sign-up (every page). Posts to /api/subscribe; the list is in
- * Admin → Subscribers. Because the footer is on every page, this component also
+ * Admin → Subscribers. As in the Figma footer, only the "Subscribe" button shows at
+ * first; pressing it opens the email field next to it. Because the footer is on every page, this component also
  * records where the visit started (referrer + UTM tags) for the enquiry forms.
  */
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>({ kind: "idle", text: "" });
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     captureLanding();
   }, []);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -53,7 +60,7 @@ export default function NewsletterForm() {
       noValidate
       onSubmit={submit}
       aria-label="Newsletter sign-up"
-      className="relative mt-[28px] w-full max-w-[323px] nav:mt-[21px] nav:max-w-[640px]"
+      className="relative mt-[28px] w-full max-w-[323px] nav:mt-[43px] nav:max-w-[640px]"
     >
       {/* Honeypot: hidden from people, filled only by bots. */}
       <div aria-hidden="true" className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden">
@@ -64,29 +71,45 @@ export default function NewsletterForm() {
       </div>
 
       <div className="flex flex-col gap-[10px] nav:flex-row nav:gap-0">
-        <label htmlFor="newsletter-email" className="sr-only">
-          Email address
-        </label>
-        <input
-          id="newsletter-email"
-          name="email"
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          placeholder="Your email address"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (state.kind !== "idle" && state.kind !== "sending") setState({ kind: "idle", text: "" });
-          }}
-          aria-invalid={invalid || undefined}
-          aria-describedby={state.text ? "newsletter-status" : undefined}
-          className={`h-[48px] w-full min-w-0 border bg-white px-[16px] font-inter text-[15px] text-navy outline-none transition-colors placeholder:text-[#8a8f99] focus:border-navy focus-visible:ring-2 focus-visible:ring-navy/20 nav:h-auto nav:flex-1 nav:border-r-0 nav:px-[20px] nav:text-[16px] ${
-            invalid ? "border-crimson" : "border-[#d6d6d6]"
-          }`}
-        />
+        {open && (
+          <>
+            <label htmlFor="newsletter-email" className="sr-only">
+              Email address
+            </label>
+            <input
+              ref={inputRef}
+              id="newsletter-email"
+              name="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder="Your email address"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (state.kind !== "idle" && state.kind !== "sending") setState({ kind: "idle", text: "" });
+              }}
+              aria-invalid={invalid || undefined}
+              aria-describedby={state.text ? "newsletter-status" : undefined}
+              className={`h-[48px] w-full min-w-0 border bg-white px-[16px] font-inter text-[15px] text-navy outline-none transition-colors placeholder:text-[#8a8f99] focus:border-navy focus-visible:ring-2 focus-visible:ring-navy/20 nav:h-auto nav:flex-1 nav:border-r-0 nav:px-[20px] nav:text-[16px] ${
+                invalid ? "border-crimson" : "border-[#d6d6d6]"
+              }`}
+            />
+          </>
+        )}
         <button
-          type="submit"
+          type={open ? "submit" : "button"}
+          onClick={
+            open
+              ? undefined
+              : (e) => {
+                  // The button turns into "submit" during this click; stop it submitting the still empty form.
+                  e.preventDefault();
+                  setOpen(true);
+                }
+          }
+          aria-expanded={open ? undefined : false}
+          aria-controls={open ? "newsletter-email" : undefined}
           disabled={sending}
           aria-busy={sending || undefined}
           className="flex w-full items-center justify-center whitespace-nowrap bg-navy px-[12px] py-[17px] font-inter text-[14px] font-medium uppercase leading-[14px] tracking-[1px] text-white transition-colors hover:bg-crimson focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson disabled:cursor-wait disabled:opacity-80 nav:w-auto nav:shrink-0 nav:px-[30px] nav:text-[17.134px] nav:font-normal nav:leading-[20.157px] nav:tracking-[1.8898px]"

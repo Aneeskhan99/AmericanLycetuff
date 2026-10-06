@@ -27,8 +27,8 @@ export const academicsPage = definePage({
         image: f.image(
           "Background photo",
           {
-            src: "/images/academics/hero-morning-assembly.jpg",
-            alt: "Students lined up in rows at the American Lycetuff Swabi morning assembly",
+            src: "/images/academics/hero-assembly-rows.jpg",
+            alt: "Students lined up in rows at the American Lycetuff Swabi morning assembly, with younger pupils watching in front",
           },
           { hint: "A wide landscape photo works best; the left side sits behind the text." },
         ),
@@ -166,7 +166,7 @@ export const academicsPage = definePage({
               watermark: "SSC",
               title: "Federal Board SSC (FBISE)",
               description:
-                "Nationally recognised, aligned to the Pakistani curriculum, and the direct route to FSc, ICS, and other intermediate programmes.",
+                "Internationally recognised, aligned to the Pakistani curriculum, and the direct route to FSc, ICS, and other intermediate programmes.",
               leadsTo: "FSc\nICS\nOther intermediate programmes",
             },
             {
