@@ -224,7 +224,7 @@ export const homePage = definePage({
     },
     admissions: {
       label: "Admissions dates",
-      description: "\"Admissions Open\" with the key date cards. Phones show the first four dates.",
+      description: "\"Admissions Open\" with the key date cards. Phones show the first four dates; computers show four and add arrows when there are more.",
       fields: {
         eyebrow: f.text("Small label above the heading", "Admissions", { max: 60 }),
         heading: f.text("Heading", "Admissions Open for *2027–28*", { max: 100, hint: HEADING_HINT }),
@@ -241,14 +241,12 @@ export const homePage = definePage({
             label: f.text("Event", "", { max: 40 }),
           },
           [
-            { day: "10", month: "Oct", label: "Open Day" },
-            { day: "12", month: "Oct", label: "Entry Test" },
-            { day: "14", month: "Oct", label: "Orientation" },
-            { day: "16", month: "Oct", label: "Classes Begin" },
-            { day: "16", month: "Oct", label: "Event date to be announced" },
-            { day: "17", month: "Oct", label: "Event date to be announced" },
+            { day: "01", month: "Mar", label: "Admissions Open" },
+            { day: "15", month: "Mar", label: "Entry Test" },
+            { day: "21", month: "Mar", label: "Orientation" },
+            { day: "25", month: "Mar", label: "Classes Begin" },
           ],
-          { itemTitle: "label", max: 12, hint: "Computers show four at a time with arrows; phones show the first four." },
+          { itemTitle: "label", max: 12, hint: "Computers show four at a time (arrows appear when there are more); phones show the first four." },
         ),
         button: f.link("Button", { label: "Apply for 2027-28", href: "/admissions" }, { hint: BUTTON_HINT }),
       },

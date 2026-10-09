@@ -8,27 +8,18 @@ import type { BarNotice } from "@/lib/public/notices";
 import { enquireLink, mainNav } from "./nav-links";
 
 function Logos({ mobile = false }: { mobile?: boolean }) {
-  // Desktop: 196x78 lockup (crest 62x78, divider, 25 years 96x72). Mobile: 150x64.
+  // Figma Nav Menu 144:11222: crest 62x78, 19px gap, "American Lycetuff / Swabi Stem School" 230x42.
+  // Mobile Header 158:1716: crest 34x43, 10px gap, wordmark 148x27.
   return (
     <Link
       href="/"
-      aria-label="American Lycetuff home"
-      className={
-        mobile
-          ? "relative block h-[64px] w-[150px] shrink-0"
-          : "relative block h-[78px] w-[196px] shrink-0"
-      }
+      aria-label="American Lycetuff, Swabi Stem School: home"
+      className={mobile ? "flex shrink-0 items-center gap-[10px]" : "flex shrink-0 items-center gap-[clamp(12px,0.99vw,19px)]"}
     >
-      <span
-        className={
-          mobile
-            ? "absolute left-0 top-0 h-[63px] w-[50px] overflow-hidden"
-            : "absolute left-0 top-0 h-[78px] w-[62px] overflow-hidden"
-        }
-      >
+      <span className={mobile ? "relative h-[43px] w-[34px] shrink-0 overflow-hidden" : "relative h-[clamp(64px,4.06vw,78px)] w-[clamp(51px,3.23vw,62px)] shrink-0 overflow-hidden"}>
         <Image
           src="/images/shared/logo-crest.png"
-          alt="American Lycetuff crest"
+          alt=""
           width={2400}
           height={2400}
           preload
@@ -36,26 +27,15 @@ function Logos({ mobile = false }: { mobile?: boolean }) {
           className="absolute left-[-12.9%] top-0 h-full w-[125.81%] max-w-none"
         />
       </span>
-      {!mobile && (
-        <span className="absolute left-[81px] top-[7.5px] h-[63px] w-px bg-black/70" aria-hidden />
-      )}
-      <span
-        className={
-          mobile
-            ? "absolute left-[68px] top-[3px] h-[58px] w-[77px] overflow-hidden"
-            : "absolute left-[100px] top-[2.3px] h-[72px] w-[96px] overflow-hidden"
-        }
-      >
-        <Image
-          src="/images/shared/logo-25-years.png"
-          alt="Celebrating 25 years"
-          width={1406}
-          height={1119}
-          preload
-          sizes="120px"
-          className="absolute left-[-7.44%] top-[-15.24%] h-[124.47%] w-[117.46%] max-w-none"
-        />
-      </span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={mobile ? "/images/shared/wordmark-swabi-mobile.svg" : "/images/shared/wordmark-swabi.svg"}
+        alt=""
+        width={mobile ? 148 : 230}
+        height={mobile ? 27 : 42.0168}
+        // Desktop scales down between 1280 and 1920 px so the menu keeps one line.
+        className={mobile ? "h-[27px] w-[148px] max-w-none shrink-0" : "h-auto w-[clamp(176px,11.98vw,230px)] max-w-none shrink-0"}
+      />
     </Link>
   );
 }
@@ -127,7 +107,7 @@ export default function Header({ announcement, notices = [] }: { announcement: A
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className="group flex items-center justify-center gap-[10px] font-inter text-[clamp(14px,0.892vw,17.134px)] uppercase leading-[20.157px] tracking-[0.11em] text-black"
+                  className="group flex items-center justify-center gap-[10px] whitespace-nowrap font-inter text-[clamp(14px,0.892vw,17.134px)] uppercase leading-[20.157px] tracking-[0.11em] text-black"
                 >
                   <span
                     className={`size-[5px] rounded-full bg-crimson transition-opacity ${
@@ -141,7 +121,7 @@ export default function Header({ announcement, notices = [] }: { announcement: A
             })}
             <Link
               href={enquireLink.href}
-              className="flex items-center justify-center bg-navy px-[30px] py-[17px] font-inter text-[clamp(14px,0.892vw,17.134px)] uppercase leading-[20.157px] tracking-[0.11em] text-white transition-colors hover:bg-crimson"
+              className="flex items-center justify-center whitespace-nowrap bg-navy px-[clamp(20px,1.56vw,30px)] py-[17px] font-inter text-[clamp(14px,0.892vw,17.134px)] uppercase leading-[20.157px] tracking-[0.11em] text-white transition-colors hover:bg-crimson"
             >
               {enquireLink.label}
             </Link>

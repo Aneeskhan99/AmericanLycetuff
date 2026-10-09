@@ -15,7 +15,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alsswabi.edu.pk"),
+  metadataBase: new URL("https://swabi.americanlycetuffdnk.edu.pk"),
   title: {
     default: "American Lycetuff Swabi Campus | Learn, Grow & Shine",
     template: "%s | American Lycetuff Swabi",

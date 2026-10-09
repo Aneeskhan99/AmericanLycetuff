@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   return (await getEventSlugs()).map((slug) => ({ slug }));
 }
 
-const siteUrl = () => (process.env.SITE_URL || "https://alsswabi.edu.pk").replace(/\/$/, "");
+const siteUrl = () => (process.env.SITE_URL || "https://swabi.americanlycetuffdnk.edu.pk").replace(/\/$/, "");
 
 /** Escapes TEXT values. */
 const text = (s: string) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
@@ -53,7 +53,7 @@ function ics(e: PublicEvent) {
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
-    `UID:event-${e.id}@alsswabi.edu.pk`,
+    `UID:event-${e.id}@swabi.americanlycetuffdnk.edu.pk`,
     `DTSTAMP:${utc(e.updatedAt)}`,
     ...(e.allDay
       ? [`DTSTART;VALUE=DATE:${dateOnly(e.startDate)}`, `DTEND;VALUE=DATE:${dateOnly(nextDay(e.endDate ?? e.startDate))}`]
