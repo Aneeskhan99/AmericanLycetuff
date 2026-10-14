@@ -11,7 +11,7 @@ type State = { kind: "idle" | "sending" | "ok" | "error"; text: string };
  * first; pressing it opens the email field next to it. Because the footer is on every page, this component also
  * records where the visit started (referrer + UTM tags) for the enquiry forms.
  */
-export default function NewsletterForm() {
+export default function NewsletterForm({ buttonLabel = "Subscribe to American Lycetuff" }: { buttonLabel?: string }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>({ kind: "idle", text: "" });
   const [open, setOpen] = useState(false);
@@ -115,7 +115,7 @@ export default function NewsletterForm() {
           className="flex w-full items-center justify-center whitespace-nowrap bg-navy px-[12px] py-[17px] font-inter text-[14px] font-medium uppercase leading-[14px] tracking-[1px] text-white transition-colors hover:bg-crimson focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson disabled:cursor-wait disabled:opacity-80 nav:w-auto nav:shrink-0 nav:px-[30px] nav:text-[17.134px] nav:font-normal nav:leading-[20.157px] nav:tracking-[1.8898px]"
         >
           {sending && <span aria-hidden className="mr-[10px] inline-block size-[14px] animate-spin rounded-full border-2 border-white/40 border-t-white" />}
-          Subscribe to American Lycetuff
+          {buttonLabel}
         </button>
       </div>
 

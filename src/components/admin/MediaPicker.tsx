@@ -160,21 +160,23 @@ export default function MediaPicker({ open, onClose, onPick, kind, multiple = fa
  * A form field for one image: preview, choose/replace, remove, and alt text.
  * value is null or { id, url, alt }.
  */
-export function ImageInput({ value, onChange, label = "Image", allowRemove = true }: {
+export function ImageInput({ value, onChange, label = "Image", allowRemove = true, contain = false }: {
   value: { id: number; url: string; alt: string } | null;
   onChange: (v: { id: number; url: string; alt: string } | null) => void;
   label?: string;
   allowRemove?: boolean;
+  /** Show the whole image (logos) instead of a square crop. */
+  contain?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex flex-col gap-2">
       <span className="text-[13px] font-medium text-[#344054]">{label}</span>
       <div className="flex items-start gap-3">
-        <div className="flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#eaecf0] bg-[#f9fafb]">
+        <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#eaecf0] bg-[#f9fafb] ${contain ? "h-24 w-40" : "size-24"}`}>
           {value ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={value.url} alt={value.alt} className="size-full object-cover" />
+            <img src={value.url} alt={value.alt} className={contain ? "size-full object-contain p-1.5" : "size-full object-cover"} />
           ) : (
             <span className="text-[12px] text-[#98a2b3]">No image</span>
           )}

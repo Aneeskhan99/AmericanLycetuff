@@ -25,7 +25,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
           <Script id="ga" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}</Script>
         </>
       )}
-      <Header announcement={settings.announcement} notices={notices} />
+      <Header announcement={settings.announcement} notices={notices} branding={settings.branding} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} />
       <PreviewBar />

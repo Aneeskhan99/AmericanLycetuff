@@ -4,11 +4,14 @@ import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from
 import type { Settings } from "@/lib/settings";
 import { useAdmin } from "../AdminProvider";
 import { Badge, Button, Card, Checkbox, ErrorNote, Field, fmtDate, Input, PageHeader, Textarea } from "../ui";
+import { ImageInput } from "../MediaPicker";
 import CampusesCard from "./CampusesCard";
 
 type Updated = Record<string, { at: string; by: string | null }>;
 type SettingsRes = { settings: Settings; updated: Updated; mail: { configured: boolean; from: string } };
 type Key = keyof Settings;
+/** Props every settings group takes. onSaved lets the visual page editor refresh its preview. */
+export type GroupProps<K extends Key> = { initial: Settings[K]; updated?: Updated[string]; onSaved?: () => void };
 
 const SECTIONS: { id: string; label: string }[] = [
   { id: "school", label: "School" },
@@ -16,6 +19,8 @@ const SECTIONS: { id: string; label: string }[] = [
   { id: "social", label: "Social links" },
   { id: "hours", label: "Office hours" },
   { id: "announcement", label: "Announcement bar" },
+  { id: "branding", label: "Logo" },
+  { id: "footer", label: "Footer texts" },
   { id: "notifications", label: "Notification emails" },
   { id: "email", label: "Email delivery" },
   { id: "analytics", label: "Analytics" },
@@ -23,7 +28,7 @@ const SECTIONS: { id: string; label: string }[] = [
 ];
 
 /** Saves one settings group; returns the saved (normalised) value. */
-function useSave<K extends Key>(key: K, onSaved: (v: Settings[K]) => void) {
+function useSave<K extends Key>(key: K, onSaved: (v: Settings[K]) => void, after?: () => void) {
   const { api, toast, user } = useAdmin();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -35,6 +40,7 @@ function useSave<K extends Key>(key: K, onSaved: (v: Settings[K]) => void) {
       const res = await api<{ value: Settings[K] }>("/api/admin/settings", { method: "PUT", body: { key, value } });
       onSaved(res.value);
       setSaved({ at: new Date().toISOString(), by: user.name });
+      after?.();
       toast("Saved. The website will show the change on the next page load.");
     } catch (e) {
       setError((e as Error).message);
@@ -84,9 +90,9 @@ function Group({ id, title, description, updated, busy, error, onSubmit, childre
 const grid2 = "grid gap-4 sm:grid-cols-2";
 
 // ------------------------------------------------------------------ groups
-function SchoolGroup({ initial, updated }: { initial: Settings["school"]; updated?: Updated[string] }) {
+export function SchoolGroup({ initial, updated, onSaved }: GroupProps<"school">) {
   const [f, setF] = useState(initial);
-  const { save, busy, error, saved } = useSave("school", setF);
+  const { save, busy, error, saved } = useSave("school", setF, onSaved);
   return (
     <Group id="school" title="School" description="The school name used in the footer and emails." updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}>
       <Field label="School name" htmlFor="s-name" required><Input id="s-name" value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></Field>
@@ -98,9 +104,9 @@ function SchoolGroup({ initial, updated }: { initial: Settings["school"]; update
   );
 }
 
-function ContactGroup({ initial, updated }: { initial: Settings["contact"]; updated?: Updated[string] }) {
+export function ContactGroup({ initial, updated, onSaved }: GroupProps<"contact">) {
   const [f, setF] = useState(initial);
-  const { save, busy, error, saved } = useSave("contact", setF);
+  const { save, busy, error, saved } = useSave("contact", setF, onSaved);
   const set = (k: keyof Settings["contact"]) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
   return (
     <Group id="contact" title="Contact details" description="Shown in the site footer and used across the contact pages." updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}>
@@ -129,9 +135,9 @@ const SOCIAL: { k: keyof Settings["social"]; label: string; ph: string }[] = [
   { k: "tiktok", label: "TikTok", ph: "https://www.tiktok.com/@…" },
 ];
 
-function SocialGroup({ initial, updated }: { initial: Settings["social"]; updated?: Updated[string] }) {
+export function SocialGroup({ initial, updated, onSaved }: GroupProps<"social">) {
   const [f, setF] = useState(initial);
-  const { save, busy, error, saved } = useSave("social", setF);
+  const { save, busy, error, saved } = useSave("social", setF, onSaved);
   return (
     <Group id="social" title="Social links" description="Full https:// addresses. Leave a link empty to hide its icon in the footer." updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}>
       <div className={grid2}>
@@ -145,9 +151,9 @@ function SocialGroup({ initial, updated }: { initial: Settings["social"]; update
   );
 }
 
-function HoursGroup({ initial, updated }: { initial: Settings["hours"]; updated?: Updated[string] }) {
+export function HoursGroup({ initial, updated, onSaved }: GroupProps<"hours">) {
   const [f, setF] = useState(initial);
-  const { save, busy, error, saved } = useSave("hours", setF);
+  const { save, busy, error, saved } = useSave("hours", setF, onSaved);
   return (
     <Group id="hours" title="Office hours" updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}>
       <div className="grid gap-4 sm:grid-cols-3">
@@ -160,9 +166,9 @@ function HoursGroup({ initial, updated }: { initial: Settings["hours"]; updated?
   );
 }
 
-function AnnouncementGroup({ initial, updated }: { initial: Settings["announcement"]; updated?: Updated[string] }) {
+export function AnnouncementGroup({ initial, updated, onSaved }: GroupProps<"announcement">) {
   const [f, setF] = useState(initial);
-  const { save, busy, error, saved } = useSave("announcement", setF);
+  const { save, busy, error, saved } = useSave("announcement", setF, onSaved);
   return (
     <Group
       id="announcement"
@@ -174,6 +180,65 @@ function AnnouncementGroup({ initial, updated }: { initial: Settings["announceme
       <div className={grid2}>
         <Field label="Text" htmlFor="a-text" required={f.show}><Input id="a-text" value={f.text} maxLength={160} onChange={(e) => setF({ ...f, text: e.target.value })} /></Field>
         <Field label="Link" htmlFor="a-href" hint="A page on this site, e.g. /admissions, or a full https:// address."><Input id="a-href" value={f.href} onChange={(e) => setF({ ...f, href: e.target.value })} /></Field>
+      </div>
+    </Group>
+  );
+}
+
+const DEFAULT_LOGO = "/images/shared/logo-crest.png";
+const DEFAULT_WORDMARK = "/images/shared/wordmark-swabi.svg";
+
+export function BrandingGroup({ initial, updated, onSaved }: GroupProps<"branding">) {
+  const [f, setF] = useState(initial);
+  const { save, busy, error, saved } = useSave("branding", setF, onSaved);
+  const img = (src: string, alt: string) => ({ id: 0, url: src, alt });
+  return (
+    <Group
+      id="branding"
+      title="Logo"
+      description="The crest and the school name shown at the top of every page (the crest also appears in the footer). Upload a PNG or WebP with a transparent background."
+      updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}
+    >
+      <ImageInput
+        label="Crest"
+        value={img(f.logo, f.logoAlt)}
+        allowRemove={false}
+        contain
+        onChange={(v) => v && setF({ ...f, logo: v.url, logoAlt: v.alt })}
+      />
+      {f.logo !== DEFAULT_LOGO && (
+        <Button type="button" tone="ghost" size="sm" className="w-fit" onClick={() => setF({ ...f, logo: DEFAULT_LOGO })}>Use the original crest</Button>
+      )}
+      <ImageInput
+        label="School name (image next to the crest)"
+        value={img(f.wordmark, f.wordmarkAlt)}
+        allowRemove={false}
+        contain
+        onChange={(v) => v && setF({ ...f, wordmark: v.url, wordmarkAlt: v.alt })}
+      />
+      {f.wordmark !== DEFAULT_WORDMARK && (
+        <Button type="button" tone="ghost" size="sm" className="w-fit" onClick={() => setF({ ...f, wordmark: DEFAULT_WORDMARK })}>Use the original school name</Button>
+      )}
+    </Group>
+  );
+}
+
+export function FooterGroup({ initial, updated, onSaved }: GroupProps<"footer">) {
+  const [f, setF] = useState(initial);
+  const { save, busy, error, saved } = useSave("footer", setF, onSaved);
+  const set = (k: keyof Settings["footer"]) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
+  return (
+    <Group id="footer" title="Footer texts" description="The fixed texts at the bottom of every page. Contact details and social links have their own sections." updated={saved ?? updated} busy={busy} error={error} onSubmit={() => save(f)}>
+      <div className={grid2}>
+        <Field label="Newsletter label" htmlFor="ft-nl"><Input id="ft-nl" value={f.newsletterLabel} onChange={set("newsletterLabel")} /></Field>
+        <Field label="Subscribe button" htmlFor="ft-btn" required><Input id="ft-btn" value={f.newsletterButton} onChange={set("newsletterButton")} /></Field>
+      </div>
+      <Field label="Newsletter heading" htmlFor="ft-nh"><Input id="ft-nh" value={f.newsletterHeading} onChange={set("newsletterHeading")} /></Field>
+      <div className={grid2}>
+        <Field label="Exam boards title" htmlFor="ft-bt"><Input id="ft-bt" value={f.boardsTitle} onChange={set("boardsTitle")} /></Field>
+        <Field label="Social links title" htmlFor="ft-ft"><Input id="ft-ft" value={f.followTitle} onChange={set("followTitle")} /></Field>
+        <Field label="Copyright line" htmlFor="ft-cr"><Input id="ft-cr" value={f.copyright} onChange={set("copyright")} /></Field>
+        <Field label="Legal line" htmlFor="ft-lg"><Input id="ft-lg" value={f.legal} onChange={set("legal")} /></Field>
       </div>
     </Group>
   );
@@ -317,6 +382,8 @@ export default function SettingsScreen() {
             <SocialGroup initial={data.settings.social} updated={data.updated.social} />
             <HoursGroup initial={data.settings.hours} updated={data.updated.hours} />
             <AnnouncementGroup initial={data.settings.announcement} updated={data.updated.announcement} />
+            <BrandingGroup initial={data.settings.branding} updated={data.updated.branding} />
+            <FooterGroup initial={data.settings.footer} updated={data.updated.footer} />
             <NotificationsGroup initial={data.settings.notifications} updated={data.updated.notifications} />
             <EmailGroup mail={data.mail} />
             <AnalyticsGroup initial={data.settings.analytics} updated={data.updated.analytics} />

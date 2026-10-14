@@ -7,6 +7,7 @@ import { ApiError, useAdmin } from "../AdminProvider";
 import { Badge, Button, ConfirmDialog, Dialog, Empty, ErrorNote, fmtDate, Select } from "../ui";
 import { ChangedDot, FieldBlock } from "./FieldEditors";
 import { changedPaths, deepEqual, labelOf } from "./patch";
+import VisualEditor from "./VisualEditor";
 
 type Meta = { rev: string; publishedAt: string | null; publishedBy: string | null; draftUpdatedAt: string | null; draftUpdatedBy: string | null };
 type ServerState = { published: Patch; draft: Patch | null; hasDraft: boolean; meta: Meta };
@@ -40,6 +41,9 @@ export default function PageEditor({ pageKey }: { pageKey: string }) {
   const [busy, setBusy] = useState<"" | "publish" | "discard" | "reset" | "preview">("");
   const [confirm, setConfirm] = useState<"" | "publish" | "discard" | "reset">("");
   const [history, setHistory] = useState(false);
+  /** Visual: the live page with click-to-edit (computers). Form: the section-by-section fields. */
+  const [mode, setMode] = useState<"visual" | "form">("visual");
+  const [saveTick, setSaveTick] = useState(0);
 
   /** Adopt a state returned by the server as the new baseline (no pending edits). */
   const adopt = useCallback((s: ServerState) => {
@@ -83,6 +87,7 @@ export default function PageEditor({ pageKey }: { pageKey: string }) {
       if (editSeq.current === seq) setPending(false);
       setSavedAt(new Date());
       setSaveError("");
+      setSaveTick((t) => t + 1);
       return true;
     } catch (e) {
       setSaveError((e as Error).message);
@@ -269,6 +274,21 @@ export default function PageEditor({ pageKey }: { pageKey: string }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
+            {fieldTotal > 0 && (
+              <div className="hidden rounded-lg border border-[#d0d5dd] bg-white p-0.5 lg:flex" role="group" aria-label="Editor view">
+                {(["visual", "form"] as const).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    aria-pressed={mode === m}
+                    onClick={() => setMode(m)}
+                    className={`rounded-md px-3 py-1.5 text-[13px] font-medium ${mode === m ? "bg-[#1a2d59] text-white" : "text-[#475467] hover:bg-[#f2f4f7]"}`}
+                  >
+                    {m === "visual" ? "Visual editor" : "Form"}
+                  </button>
+                ))}
+              </div>
+            )}
             {hasDraft && (
               <Button tone="ghost" onClick={() => setConfirm("discard")} disabled={!!busy}>Discard draft</Button>
             )}
@@ -282,12 +302,27 @@ export default function PageEditor({ pageKey }: { pageKey: string }) {
         </div>
       </div>
 
+      {fieldTotal > 0 && mode === "visual" && (
+        <div className="relative hidden lg:left-1/2 lg:block lg:w-[calc(100vw-260px-56px)] lg:-translate-x-1/2">
+          {conflict && (
+            <div className="mb-3">
+              <ErrorNote>
+                {saveError || "This page was changed by someone else."} <button type="button" className="font-medium underline" onClick={() => window.location.reload()}>Reload now</button>
+              </ErrorNote>
+            </div>
+          )}
+          {saveError && !conflict && <div className="mb-3"><ErrorNote>{saveError}</ErrorNote></div>}
+          <VisualEditor page={page} work={work} changedSet={changedSet} setValue={setValue} saveTick={saveTick} />
+          <div className="mt-3 flex justify-end">{pageTools}</div>
+        </div>
+      )}
+
       {fieldTotal === 0 ? (
         <div className="rounded-xl border border-[#eaecf0] bg-white">
           <Empty title="Nothing to edit on this page yet">Its editable fields have not been set up in the website code yet.</Empty>
         </div>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
+        <div className={`grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)] ${mode === "visual" ? "lg:hidden" : ""}`}>
           {/* Section navigation */}
           <aside className="lg:sticky lg:top-[112px] lg:max-h-[calc(100dvh-136px)] lg:self-start lg:overflow-y-auto">
             <div className="lg:hidden">

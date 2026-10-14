@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { draftMode } from "next/headers";
+import EditBridge from "./EditBridge";
 
 /**
  * A small floating bar shown on public pages ONLY while Preview (Next.js draft
@@ -19,7 +20,11 @@ export default async function PreviewBar() {
   }
   if (!enabled) return null;
   return (
+    <>
+    {/* Click-to-edit support; does nothing unless the page is inside the admin's visual editor. */}
+    <EditBridge />
     <aside
+      data-als-preview-bar
       role="status"
       aria-label="Preview mode"
       className="fixed inset-x-4 bottom-4 z-[1000] flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-xl bg-[#1a2d59] px-4 py-3 text-[14px] text-white shadow-2xl sm:inset-x-auto sm:left-4 sm:max-w-[560px]"
@@ -41,5 +46,6 @@ export default async function PreviewBar() {
         </button>
       </form>
     </aside>
+    </>
   );
 }

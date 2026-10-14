@@ -19,7 +19,19 @@ export type Settings = {
   notifications: { enquire: string[]; visit: string[]; contact: string[]; newsletter: string[] };
   /** Default text of the announcement bar when no notice is pinned. */
   announcement: { show: boolean; text: string; href: string };
+  /** Header and footer logo. Paths on this site (/images/... or /media/...). */
+  branding: { logo: string; logoAlt: string; wordmark: string; wordmarkAlt: string };
+  /** Fixed texts in the footer. */
+  footer: {
+    newsletterLabel: string; newsletterHeading: string; newsletterButton: string;
+    boardsTitle: string; followTitle: string; copyright: string; legal: string;
+  };
 };
+
+/** The built-in logo files (the crest is drawn with a crop that only suits this file). */
+export const DEFAULT_LOGO = "/images/shared/logo-crest.png";
+export const DEFAULT_WORDMARK = "/images/shared/wordmark-swabi.svg";
+export const DEFAULT_WORDMARK_MOBILE = "/images/shared/wordmark-swabi-mobile.svg";
 
 export const DEFAULT_SETTINGS: Settings = {
   school: { name: "American Lycetuff", campusName: "Swabi Campus", tagline: "Learn, Grow & Shine" },
@@ -55,6 +67,21 @@ export const DEFAULT_SETTINGS: Settings = {
     newsletter: [],
   },
   announcement: { show: true, text: "Applications open for 2026–27", href: "/admissions" },
+  branding: {
+    logo: DEFAULT_LOGO,
+    logoAlt: "American Lycetuff crest",
+    wordmark: DEFAULT_WORDMARK,
+    wordmarkAlt: "American Lycetuff, Swabi Stem School",
+  },
+  footer: {
+    newsletterLabel: "Newsletter",
+    newsletterHeading: "Stay up to date with what's happening at Swabi campus",
+    newsletterButton: "Subscribe to American Lycetuff",
+    boardsTitle: "Examinations & Registrations",
+    followTitle: "Follow Us",
+    copyright: "© 2026 American Lycetuff",
+    legal: "Privacy Policy | ABN: 11-22-3333",
+  },
 };
 
 export const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS) as (keyof Settings)[];

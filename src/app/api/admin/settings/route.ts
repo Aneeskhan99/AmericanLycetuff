@@ -2,7 +2,7 @@ import { body, guard, HttpError, json } from "@/lib/admin-route";
 import { audit, q } from "@/lib/db";
 import { mailConfigured } from "@/lib/mail";
 import { revalidatePaths } from "@/lib/revalidate";
-import { getSettings, saveSetting, SETTING_KEYS, type Settings } from "@/lib/settings";
+import { DEFAULT_SETTINGS, getSettings, saveSetting, SETTING_KEYS, type Settings } from "@/lib/settings";
 import { bool, email, oneOf, str } from "@/lib/validate";
 
 /**
@@ -34,6 +34,14 @@ function link(v: unknown, label: string): string {
   if (!s) return "";
   if (s.startsWith("/") && !s.startsWith("//")) return s;
   return httpUrl(s, label);
+}
+
+/** An image on this site: /images/... or /media/... (empty means the built-in default). */
+function sitePath(v: unknown, label: string, fallback: string): string {
+  const s = str(v, { max: 500, label });
+  if (!s) return fallback;
+  if (!/^\/(images|media)\/[^\s"'<>]+$/.test(s)) throw new HttpError(422, `${label} must be an image from the media library.`);
+  return s;
 }
 
 function phoneText(v: unknown, label: string, required = false): string {
@@ -113,6 +121,23 @@ function validate(key: keyof Settings, raw: unknown): Settings[keyof Settings] {
       const text = str(v.text, { max: 160, label: "Announcement text", required: show });
       return { show, text, href: link(v.href, "Announcement link") };
     }
+    case "branding":
+      return {
+        logo: sitePath(v.logo, "Logo", DEFAULT_SETTINGS.branding.logo),
+        logoAlt: str(v.logoAlt, { max: 160, label: "Logo description" }),
+        wordmark: sitePath(v.wordmark, "School name image", DEFAULT_SETTINGS.branding.wordmark),
+        wordmarkAlt: str(v.wordmarkAlt, { max: 160, label: "School name image description" }),
+      };
+    case "footer":
+      return {
+        newsletterLabel: str(v.newsletterLabel, { max: 60, label: "Newsletter label" }),
+        newsletterHeading: str(v.newsletterHeading, { max: 160, label: "Newsletter heading" }),
+        newsletterButton: str(v.newsletterButton, { max: 60, label: "Subscribe button", required: true }),
+        boardsTitle: str(v.boardsTitle, { max: 80, label: "Exam boards title" }),
+        followTitle: str(v.followTitle, { max: 40, label: "Social links title" }),
+        copyright: str(v.copyright, { max: 120, label: "Copyright line" }),
+        legal: str(v.legal, { max: 160, label: "Legal line" }),
+      };
   }
 }
 

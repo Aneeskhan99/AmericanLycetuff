@@ -5,37 +5,59 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { BarNotice } from "@/lib/public/notices";
+import type { Settings } from "@/lib/settings";
 import { enquireLink, mainNav } from "./nav-links";
 
-function Logos({ mobile = false }: { mobile?: boolean }) {
+const DEFAULT_LOGO = "/images/shared/logo-crest.png";
+const DEFAULT_WORDMARK = "/images/shared/wordmark-swabi.svg";
+type Branding = Settings["branding"];
+
+function Logos({ mobile = false, branding }: { mobile?: boolean; branding: Branding }) {
+  const customLogo = branding.logo !== DEFAULT_LOGO;
+  const customWordmark = branding.wordmark !== DEFAULT_WORDMARK;
   // Figma Nav Menu 144:11222: crest 62x78, 19px gap, "American Lycetuff / Swabi Stem School" 230x42.
   // Mobile Header 158:1716: crest 34x43, 10px gap, wordmark 148x27.
   return (
     <Link
       href="/"
-      aria-label="American Lycetuff, Swabi Stem School: home"
+      aria-label={`${branding.wordmarkAlt || "American Lycetuff"}: home`}
+      data-als-site="branding"
       className={mobile ? "flex shrink-0 items-center gap-[10px]" : "flex shrink-0 items-center gap-[clamp(12px,0.99vw,19px)]"}
     >
       <span className={mobile ? "relative h-[43px] w-[34px] shrink-0 overflow-hidden" : "relative h-[clamp(64px,4.06vw,78px)] w-[clamp(51px,3.23vw,62px)] shrink-0 overflow-hidden"}>
-        <Image
-          src="/images/shared/logo-crest.png"
-          alt=""
-          width={2400}
-          height={2400}
-          preload
-          sizes="100px"
-          className="absolute left-[-12.9%] top-0 h-full w-[125.81%] max-w-none"
-        />
+        {customLogo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={branding.logo} alt="" className="absolute inset-0 size-full object-contain" />
+        ) : (
+          <Image
+            src={DEFAULT_LOGO}
+            alt=""
+            width={2400}
+            height={2400}
+            preload
+            sizes="100px"
+            className="absolute left-[-12.9%] top-0 h-full w-[125.81%] max-w-none"
+          />
+        )}
       </span>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={mobile ? "/images/shared/wordmark-swabi-mobile.svg" : "/images/shared/wordmark-swabi.svg"}
-        alt=""
-        width={mobile ? 148 : 230}
-        height={mobile ? 27 : 42.0168}
-        // Desktop scales down between 1280 and 1920 px so the menu keeps one line.
-        className={mobile ? "h-[27px] w-[148px] max-w-none shrink-0" : "h-auto w-[clamp(176px,11.98vw,230px)] max-w-none shrink-0"}
-      />
+      {customWordmark ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={branding.wordmark}
+          alt=""
+          className={mobile ? "h-[27px] w-auto max-w-[180px] shrink-0 object-contain" : "h-[clamp(34px,2.19vw,42px)] w-auto max-w-[300px] shrink-0 object-contain"}
+        />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={mobile ? "/images/shared/wordmark-swabi-mobile.svg" : DEFAULT_WORDMARK}
+          alt=""
+          width={mobile ? 148 : 230}
+          height={mobile ? 27 : 42.0168}
+          // Desktop scales down between 1280 and 1920 px so the menu keeps one line.
+          className={mobile ? "h-[27px] w-[148px] max-w-none shrink-0" : "h-auto w-[clamp(176px,11.98vw,230px)] max-w-none shrink-0"}
+        />
+      )}
     </Link>
   );
 }
@@ -46,7 +68,7 @@ const noop = () => () => {};
 
 type Announcement = { show: boolean; text: string; href: string };
 
-export default function Header({ announcement, notices = [] }: { announcement: Announcement; notices?: BarNotice[] }) {
+export default function Header({ announcement, notices = [], branding }: { announcement: Announcement; notices?: BarNotice[]; branding: Branding }) {
   const today = useSyncExternalStore(noop, todayPk, () => "");
   // A pinned notice that is live today wins; otherwise the default announcement from Settings.
   const notice = today ? notices.find((n) => n.start <= today && (!n.end || n.end >= today)) : undefined;
@@ -74,7 +96,7 @@ export default function Header({ announcement, notices = [] }: { announcement: A
     <header className="sticky top-0 z-50 w-full bg-white">
       {/* Announcement bar */}
       {barOpen && bar && (
-        <div className="relative bg-navy text-white">
+        <div className="relative bg-navy text-white" data-als-site="announcement">
           <div className="frame flex h-[40px] items-center justify-center nav:h-[42.5px]">
             <Link
               href={bar.href || "/"}
@@ -98,7 +120,7 @@ export default function Header({ announcement, notices = [] }: { announcement: A
       {/* Desktop bar */}
       <div className="hidden border-b border-line nav:block">
         <div className="frame gutter flex h-[111px] items-center justify-between">
-          <Logos />
+          <Logos branding={branding} />
           <nav aria-label="Main" className="flex items-center gap-[clamp(14px,1.3vw,25px)]">
             {mainNav.map((item) => {
               const active = isActive(item.href);
@@ -132,7 +154,7 @@ export default function Header({ announcement, notices = [] }: { announcement: A
       {/* Mobile bar */}
       <div className="border-b border-[#e6e6e6] nav:hidden">
         <div className="flex h-[75px] items-center justify-between pl-[24px] pr-[16px]">
-          <Logos mobile />
+          <Logos mobile branding={branding} />
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}

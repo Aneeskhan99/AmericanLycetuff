@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import NewsletterForm from "@/components/site/NewsletterForm";
-import type { Settings } from "@/lib/settings";
+import { DEFAULT_LOGO, type Settings } from "@/lib/settings";
 import { footerNav } from "./nav-links";
 
 function SocialIcons({ social }: { social: Settings["social"] }) {
@@ -100,32 +100,39 @@ function BoardLogos() {
 /** Site footer. Contact details and social links come from Admin → Settings. */
 export default function Footer({ settings }: { settings: Settings }) {
   const contact = { name: settings.school.name, ...settings.contact };
+  const f = settings.footer;
+  const logo = settings.branding;
   return (
     <footer className="bg-navy-ink text-white nav:bg-navy-deep">
       {/* Newsletter band */}
       <section className="border border-maroon bg-white text-black nav:border-x-0 nav:border-b-0 nav:border-t-2">
         <div className="frame relative flex flex-col items-center px-[24px] py-[48px] text-center nav:h-[334px] nav:flex-row nav:items-stretch nav:p-0 nav:text-left">
           {/* Crest */}
-          <div className="relative h-[90px] w-[72px] shrink-0 overflow-hidden nav:my-auto nav:ml-[clamp(60px,12.6vw,242px)] nav:mr-[clamp(40px,4.7vw,90px)] nav:h-[206px] nav:w-[164px]">
-            <Image
-              src="/images/shared/logo-crest.png"
-              alt="American Lycetuff crest"
-              width={2400}
-              height={2400}
-              sizes="200px"
-              className="absolute left-[-12.9%] top-0 h-full w-[125.81%] max-w-none"
-            />
+          <div data-als-site="branding" className="relative h-[90px] w-[72px] shrink-0 overflow-hidden nav:my-auto nav:ml-[clamp(60px,12.6vw,242px)] nav:mr-[clamp(40px,4.7vw,90px)] nav:h-[206px] nav:w-[164px]">
+            {logo.logo !== DEFAULT_LOGO ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logo.logo} alt={logo.logoAlt} className="absolute inset-0 size-full object-contain" />
+            ) : (
+              <Image
+                src={DEFAULT_LOGO}
+                alt={logo.logoAlt || "American Lycetuff crest"}
+                width={2400}
+                height={2400}
+                sizes="200px"
+                className="absolute left-[-12.9%] top-0 h-full w-[125.81%] max-w-none"
+              />
+            )}
           </div>
           {/* Vertical divider (desktop) */}
           <span className="hidden w-px shrink-0 bg-maroon/20 nav:block" aria-hidden />
-          <div className="mt-[24px] flex flex-col items-center nav:mt-[67px] nav:items-start nav:pl-[clamp(40px,3.97vw,76px)] nav:pr-[clamp(40px,13.3vw,256px)]">
+          <div data-als-site="footer" className="mt-[24px] flex flex-col items-center nav:mt-[67px] nav:items-start nav:pl-[clamp(40px,3.97vw,76px)] nav:pr-[clamp(40px,13.3vw,256px)]">
             <p className="font-inter text-[13px] font-semibold uppercase leading-[20px] tracking-[2.4px] text-navy nav:text-[12.195px] nav:font-normal nav:leading-[18.343px] nav:tracking-[1.1288px] nav:text-black">
-              Newsletter
+              {f.newsletterLabel}
             </p>
             <h2 className="mt-[12px] font-inter text-[26px] leading-[33px] text-crimson nav:mt-[9px] nav:text-[clamp(28px,1.91vw,36.687px)] nav:leading-[43.087px]">
-              Stay up to date with what&apos;s happening at Swabi campus
+              {f.newsletterHeading}
             </h2>
-            <NewsletterForm />
+            <NewsletterForm buttonLabel={f.newsletterButton} />
           </div>
         </div>
       </section>
@@ -154,14 +161,14 @@ export default function Footer({ settings }: { settings: Settings }) {
         {/* Boards + follow */}
         <div className="mt-[40px] flex flex-col items-center gap-[40px] nav:mt-[42px] nav:flex-row nav:items-start nav:justify-between nav:gap-[24px]">
           <div className="w-full nav:w-auto">
-            <p className="mb-[16px] font-open-sans text-[16px] font-bold leading-[28px] tracking-[2px] nav:mb-[8px] nav:text-[18.142px] nav:leading-[40.315px] nav:tracking-normal">
-              Examinations &amp; Registrations
+            <p data-als-site="footer" className="mb-[16px] font-open-sans text-[16px] font-bold leading-[28px] tracking-[2px] nav:mb-[8px] nav:text-[18.142px] nav:leading-[40.315px] nav:tracking-normal">
+              {f.boardsTitle}
             </p>
             <BoardLogos />
           </div>
-          <div className="flex flex-col items-center nav:items-end">
+          <div className="flex flex-col items-center nav:items-end" data-als-site="social">
             <p className="mb-[16px] font-open-sans text-[16px] font-bold uppercase leading-[28px] tracking-[2px] nav:mb-[21px] nav:text-[18.142px] nav:leading-[40.315px] nav:tracking-[3.0236px]">
-              Follow Us
+              {f.followTitle}
             </p>
             <SocialIcons social={settings.social} />
           </div>
@@ -169,7 +176,7 @@ export default function Footer({ settings }: { settings: Settings }) {
 
         {/* Contact + legal */}
         <div className="mt-[40px] flex flex-col items-center nav:mt-[50px] nav:flex-row nav:items-end nav:justify-between">
-          <address className="flex max-w-[430px] flex-col items-center gap-[12px] not-italic nav:items-start nav:gap-[7px]">
+          <address data-als-site="contact" className="flex max-w-[430px] flex-col items-center gap-[12px] not-italic nav:items-start nav:gap-[7px]">
             <p className="font-inter text-[13px] font-semibold leading-[20px] tracking-[0.98px] nav:text-[13.405px] nav:leading-[20.964px] nav:tracking-[1.0079px]">
               {contact.name}
             </p>
@@ -182,9 +189,9 @@ export default function Footer({ settings }: { settings: Settings }) {
 
           <div className="mt-[32px] h-px w-full bg-white/16 nav:hidden" aria-hidden />
 
-          <div className="mt-[24px] flex flex-col items-center gap-[12px] font-inter text-[13px] leading-[20px] text-white/75 nav:mt-0 nav:items-end nav:gap-[7px] nav:leading-[20.964px]">
-            <p>© 2026 American Lycetuff</p>
-            <p>Privacy Policy | ABN: 11-22-3333</p>
+          <div data-als-site="footer" className="mt-[24px] flex flex-col items-center gap-[12px] font-inter text-[13px] leading-[20px] text-white/75 nav:mt-0 nav:items-end nav:gap-[7px] nav:leading-[20.964px]">
+            {f.copyright && <p>{f.copyright}</p>}
+            {f.legal && <p>{f.legal}</p>}
           </div>
         </div>
       </div>
