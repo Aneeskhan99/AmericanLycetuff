@@ -41,6 +41,7 @@ export default function OpeningHours({ content: c, info }: Props) {
                   >
                     <dt className={`${eyebrow} text-[#fd0]`}>{h.day}</dt>
                     <dd
+                      data-als-site="hours"
                       className={`text-[24px] leading-[29px] lg:text-[28px] lg:leading-normal ${h.closed ? "text-[#fd0]" : "text-white"}`}
                     >
                       {h.time}
@@ -51,7 +52,7 @@ export default function OpeningHours({ content: c, info }: Props) {
             )}
 
             {info.hours.note && (
-              <p className="mt-[32px] text-[18px] leading-[28px] tracking-[0.3px] text-white lg:mt-[56px] lg:max-w-[560px] lg:leading-[30px]">
+              <p data-als-site="hours" className="mt-[32px] text-[18px] leading-[28px] tracking-[0.3px] text-white lg:mt-[56px] lg:max-w-[560px] lg:leading-[30px]">
                 {info.hours.note}
               </p>
             )}

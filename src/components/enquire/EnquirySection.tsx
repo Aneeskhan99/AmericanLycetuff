@@ -34,6 +34,7 @@ export default function EnquirySection({ content: c, info }: Props) {
               </p>
               <a
                 href={info.phoneHref}
+                data-als-site="contact"
                 className="mt-[14px] inline-block text-[30px] font-bold leading-[34px] hover:text-[#fd0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fd0] lg:mt-[11px] lg:text-[clamp(34px,2.3vw,44px)] lg:leading-[53px]"
               >
                 {info.phone}
@@ -45,7 +46,7 @@ export default function EnquirySection({ content: c, info }: Props) {
                   <p className="mt-[16px] text-[13px] font-semibold uppercase leading-[20px] tracking-[2.7083px] text-[#fd0] lg:mt-[36px] lg:text-[12px] lg:leading-[15px] lg:tracking-[2.5px]">
                     {c.hoursLabel}
                   </p>
-                  <p className="mt-[12px] text-[16px] leading-[25px] tracking-[0.2824px] lg:mt-[11px] lg:max-w-[380px] lg:text-[17px] lg:leading-[27px] lg:tracking-[0.3px]">
+                  <p data-als-site="hours" className="mt-[12px] text-[16px] leading-[25px] tracking-[0.2824px] lg:mt-[11px] lg:max-w-[380px] lg:text-[17px] lg:leading-[27px] lg:tracking-[0.3px]">
                     {info.hoursLine}
                   </p>
                 </>

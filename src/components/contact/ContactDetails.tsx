@@ -17,6 +17,9 @@ type Card = {
   offset?: boolean;
   /** Extra space above this card on mobile (design gaps are 32 / 18 / 18) */
   mobileGap?: string;
+  /** The value (site) or the small text under it (subSite) comes from Settings → Contact details (visual editor). */
+  site?: boolean;
+  subSite?: boolean;
 };
 
 type Props = { content: PageContent<typeof contactPage>["details"]; info: ContactInfo };
@@ -28,6 +31,7 @@ function cardsFor(c: Props["content"], info: ContactInfo): Card[] {
       value: c.campusText,
       valueClass: "text-[20px] leading-[31px] lg:text-[clamp(18px,1.146vw,22px)] lg:leading-[1.4545]",
       sub: info.address,
+      subSite: true,
       action: c.campusAction,
       href: info.directionsHref,
       external: true,
@@ -36,6 +40,7 @@ function cardsFor(c: Props["content"], info: ContactInfo): Card[] {
     {
       label: c.phoneLabel,
       value: info.phone,
+      site: true,
       valueClass:
         "mt-[2px] text-[27px] font-light leading-[32px] tracking-[-0.3553px] lg:mt-0 lg:text-[clamp(28px,1.98vw,38px)] lg:leading-[1.263] lg:tracking-[-0.5px]",
       action: c.phoneAction,
@@ -47,6 +52,7 @@ function cardsFor(c: Props["content"], info: ContactInfo): Card[] {
     {
       label: c.whatsappLabel,
       value: info.whatsapp,
+      site: true,
       valueClass: "text-[20px] leading-[31px] lg:text-[clamp(20px,1.354vw,26px)] lg:leading-[1.3846]",
       sub: c.whatsappNote || undefined,
       action: c.whatsappAction,
@@ -57,6 +63,7 @@ function cardsFor(c: Props["content"], info: ContactInfo): Card[] {
     {
       label: c.emailLabel,
       value: info.admissionsEmail,
+      site: true,
       valueClass: "text-[20px] leading-[31px] lg:text-[clamp(18px,1.146vw,22px)] lg:leading-[1.4545]",
       action: c.emailAction,
       href: info.emailHref,
@@ -86,10 +93,10 @@ export default function ContactDetails({ content, info }: Props) {
                 <h3 className={`${eyebrow} text-[#fd0]`}>{c.label}</h3>
                 <div aria-hidden className="mt-[20px] hidden h-[3px] w-[40px] bg-[#fd0] lg:block" />
                 <div className="mt-[12px] w-full lg:mt-[33px] lg:min-h-[188px] lg:max-w-[280px]">
-                  <p className={c.valueClass}>{c.value}</p>
+                  <p className={c.valueClass} data-als-site={c.site ? "contact" : undefined}>{c.value}</p>
                 </div>
                 {c.sub && (
-                  <p className="mt-[14px] text-[15px] leading-[23px] tracking-[0.3214px] lg:mt-0 lg:mb-[24px] lg:max-w-[280px] lg:text-[14px] lg:leading-[22px] lg:tracking-[0.3px] lg:opacity-80">
+                  <p data-als-site={c.subSite ? "contact" : undefined} className="mt-[14px] text-[15px] leading-[23px] tracking-[0.3214px] lg:mt-0 lg:mb-[24px] lg:max-w-[280px] lg:text-[14px] lg:leading-[22px] lg:tracking-[0.3px] lg:opacity-80">
                     {c.sub}
                   </p>
                 )}

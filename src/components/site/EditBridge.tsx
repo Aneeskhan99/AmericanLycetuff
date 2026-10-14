@@ -24,6 +24,7 @@ const SITE_LABELS: Record<string, string> = {
   branding: "Logo",
   announcement: "Announcement bar",
   contact: "Contact details",
+  hours: "Opening hours",
   social: "Social links",
   footer: "Footer texts",
 };
@@ -183,6 +184,30 @@ export default function EditBridge() {
       });
       for (const [k, els] of imgs) assign(els, imgDescs.get(k)!);
 
+      // Combined text, e.g. a button "Call 0938-320011" = the field "Call" + the phone from Settings:
+      // an untagged element whose own text contains a field value as a whole word gets that field
+      // (the longest value wins).
+      const partial = [...textDescs.entries(), ...linkDescs.entries()]
+        .filter(([k]) => k.length >= 3)
+        .map(([, descs]) => ({ descs, words: descs[0].value.replace(/\*([^*]+)\*/g, "$1").trim().toLowerCase() }))
+        .filter((d) => d.words.length >= 3)
+        .sort((x, y) => y.words.length - x.words.length);
+      if (partial.length) {
+        root.querySelectorAll("a[href],button,h1,h2,h3,h4,h5,h6,p,li,label,span,strong,dt,dd").forEach((el) => {
+          if (el.closest("[data-als-key],[data-als-site],.als-box") || el.querySelector("[data-als-key]")) return;
+          const own = [...el.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).map((n) => n.textContent ?? "").join(" ").replace(/\s+/g, " ").trim().toLowerCase();
+          if (own.length < 3) return;
+          const hit = partial.find((d) => {
+            const i = own.indexOf(d.words);
+            if (i < 0) return false;
+            const before = i === 0 ? " " : own[i - 1];
+            const after = own[i + d.words.length] ?? " ";
+            return !/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after);
+          });
+          if (hit) assign([el], hit.descs);
+        });
+      }
+
       document.querySelectorAll("[data-als-site]").forEach((el) => labels.set(`site:${el.getAttribute("data-als-site")}`, SITE_LABELS[el.getAttribute("data-als-site") ?? ""] ?? ""));
       const found = [...new Set([...document.querySelectorAll("[data-als-key]")].map((el) => el.getAttribute("data-als-key")!))];
       post({ type: "tagged", found });
@@ -246,7 +271,7 @@ export default function EditBridge() {
       }
       if ((e.target as Element | null)?.closest?.("a[href]")) {
         e.preventDefault();
-        toast("Links are turned off while editing. Use the page list to edit another page.");
+        toast("This link can’t be edited by clicking. Pick its section in the panel on the right, or use Settings for the menu and footer.");
       }
     };
     const onSubmit = (e: Event) => {

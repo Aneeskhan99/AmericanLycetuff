@@ -5,7 +5,7 @@ import type { Field, ImageValue, LinkValue, PageDef, Patch, ScalarField } from "
 import type { Settings } from "@/lib/settings";
 import type { BridgeField, BridgeTarget } from "@/components/site/EditBridge";
 import { useAdmin } from "../AdminProvider";
-import { AnnouncementGroup, BrandingGroup, ContactGroup, FooterGroup, SocialGroup } from "../settings/SettingsScreen";
+import { AnnouncementGroup, BrandingGroup, ContactGroup, FooterGroup, HoursGroup, SocialGroup } from "../settings/SettingsScreen";
 import { Button, ErrorNote } from "../ui";
 import { FieldBlock, ScalarInput } from "./FieldEditors";
 
@@ -63,6 +63,7 @@ const SITE_GROUP_TEXT: Record<string, string> = {
   contact: "Phone, email and address in the footer and on the contact pages.",
   social: "The social media icons in the footer.",
   footer: "The fixed texts at the bottom of every page.",
+  hours: "The office hours shown on the Contact and Enquire pages.",
 };
 
 export default function VisualEditor({ page, work, changedSet, setValue, saveTick, sectionOf }: {
@@ -290,6 +291,23 @@ export default function VisualEditor({ page, work, changedSet, setValue, saveTic
         <>
           <PanelTitle eyebrow={s.label} title={f.label} onBack={() => setSel(null)} />
           {fieldBlock(sel.path)}
+          {/hours/i.test(`${f.label} ${f.hint ?? ""}`) ? (
+            <button
+              type="button"
+              onClick={() => setSel({ kind: "site", group: "hours", label: "Opening hours" })}
+              className="w-fit text-left text-[13px] font-medium text-[#1a2d59] hover:underline"
+            >
+              Change the opening hours (site setting) →
+            </button>
+          ) : /(phone|settings|email|address)/i.test(`${f.label} ${f.hint ?? ""}`) ? (
+            <button
+              type="button"
+              onClick={() => setSel({ kind: "site", group: "contact", label: "Contact details" })}
+              className="w-fit text-left text-[13px] font-medium text-[#1a2d59] hover:underline"
+            >
+              Change the phone number, email or address (site setting) →
+            </button>
+          ) : null}
           <Button tone="ghost" size="sm" className="w-fit" onClick={() => setBrowse(sid)}>Show everything in “{s.label}”</Button>
         </>
       );
@@ -318,6 +336,8 @@ export default function VisualEditor({ page, work, changedSet, setValue, saveTic
           <AnnouncementGroup initial={settings.settings.announcement} updated={settings.updated.announcement} onSaved={onSaved} />
         ) : g === "contact" ? (
           <ContactGroup initial={settings.settings.contact} updated={settings.updated.contact} onSaved={onSaved} />
+        ) : g === "hours" ? (
+          <HoursGroup initial={settings.settings.hours} updated={settings.updated.hours} onSaved={onSaved} />
         ) : g === "social" ? (
           <SocialGroup initial={settings.settings.social} updated={settings.updated.social} onSaved={onSaved} />
         ) : g === "footer" ? (

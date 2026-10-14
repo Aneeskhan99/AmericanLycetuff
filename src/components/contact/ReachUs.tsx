@@ -44,6 +44,7 @@ export default function ReachUs({ content: c, info }: Props) {
               <div className={rule} />
               <a
                 href={info.phoneHref}
+                data-als-site="contact"
                 className="mt-[8px] text-[27px] font-semibold leading-[32px] tracking-[0.75px] text-[#fd0] underline-offset-4 hover:underline lg:mt-[29px] lg:text-[36px] lg:leading-[44px] lg:tracking-[1px]"
               >
                 {info.phone}

@@ -46,7 +46,7 @@ export default function GettingHere({ content: c, info }: Props) {
               <p className="mt-[12px] text-[20px] leading-[31px] text-navy lg:mt-[20px] lg:w-[360px] lg:text-[22px] lg:leading-[32px]">
                 {c.cardText}
               </p>
-              <p className="mt-[14px] text-[15px] leading-[23px] text-[#5c5c5c] lg:mt-[54px] lg:text-[14px] lg:leading-normal">
+              <p data-als-site="contact" className="mt-[14px] text-[15px] leading-[23px] text-[#5c5c5c] lg:mt-[54px] lg:text-[14px] lg:leading-normal">
                 {info.address}
               </p>
               <a
