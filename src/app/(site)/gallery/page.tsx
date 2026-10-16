@@ -7,7 +7,7 @@ import GalleryProvider from "@/components/gallery/GalleryProvider";
 import Hero from "@/components/gallery/Hero";
 import ImageStrip from "@/components/gallery/ImageStrip";
 import { parseCategories, toPhoto, type GalleryPhoto } from "@/components/gallery/photos";
-import { FullBleedMoment, StoryCampusLife, StoryPortraits, StoryStem } from "@/components/gallery/Stories";
+import { FullBleedMoment, StoryCampusLife, StoryStem } from "@/components/gallery/Stories";
 import type { ImageValue } from "@/lib/content";
 import { getAlbums, getAlbumTabPhotos, getGalleryContent } from "@/lib/public/gallery";
 
@@ -37,10 +37,9 @@ export default async function GalleryPage() {
   const hero = { front: photo(c.hero.front), back: photo(c.hero.back) };
   const s1 = { feature: photo(c.story1.feature), sideTop: photo(c.story1.sideTop), sideBottom: photo(c.story1.sideBottom) };
   const s2 = { feature: photo(c.story2.feature), sideTop: photo(c.story2.sideTop), sideBottom: photo(c.story2.sideBottom) };
-  const portraits = c.portraits.items.filter((p) => p.image.src).map((p) => ({ photo: photo(p.image), number: p.number, label: p.label, caption: p.caption }));
   const strip = c.strip.photos.filter((p) => p.image.src).map((p) => photo(p.image));
 
-  const sequence = [hero.back, hero.front, s1.feature, s1.sideTop, s1.sideBottom, s2.sideTop, s2.sideBottom, s2.feature, ...portraits.map((p) => p.photo), ...strip];
+  const sequence = [hero.back, hero.front, s1.feature, s1.sideTop, s1.sideBottom, s2.sideTop, s2.sideBottom, s2.feature, ...strip];
   const allView = sequence.filter((p, i) => p.src && sequence.findIndex((x) => x.id === p.id) === i);
 
   return (
@@ -51,7 +50,6 @@ export default async function GalleryPage() {
         <StoryCampusLife {...s1} text={{ number: c.story1.number, label: c.story1.label, caption: c.story1.caption }} />
         <FullBleedMoment background={withMeta(c.moment.background)} lines={[c.moment.line1, c.moment.line2, c.moment.line3]} />
         <StoryStem {...s2} text={{ number: c.story2.number, label: c.story2.label, caption: c.story2.caption }} />
-        <StoryPortraits items={portraits} />
         <ImageStrip heading={c.strip.heading} photos={strip} />
       </FilterView>
       <Albums albums={albums} eyebrow={c.albums.eyebrow} heading={c.albums.heading} intro={c.albums.intro} />

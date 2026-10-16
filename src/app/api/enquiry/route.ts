@@ -95,7 +95,7 @@ export async function POST(req: Request) {
     }
   } catch (err) {
     console.error("[enquiry] database unavailable", err);
-    return fail("We could not send your message right now. Please call 0938-320011.", 503);
+    return fail("We could not send your message right now. Please call 0317-1173886.", 503);
   }
 
   let rec: {
@@ -161,7 +161,7 @@ export async function POST(req: Request) {
     saved = row;
   } catch (err) {
     console.error("[enquiry] could not save", err);
-    return fail("We could not send your message right now. Please call 0938-320011.", 500);
+    return fail("We could not send your message right now. Please call 0317-1173886.", 500);
   }
 
   // Email after the response, so a slow mail server never delays the visitor.

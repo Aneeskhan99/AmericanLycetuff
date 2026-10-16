@@ -86,7 +86,7 @@ export default function Hero({ content: c }: Props) {
               </div>
             </div>
 
-            <div className="relative hidden border-[10px] border-navy-ink lg:absolute lg:left-[calc(425*var(--u))] lg:top-[calc(220*var(--u))] lg:block lg:h-[calc(400*var(--u))] lg:w-[calc(240*var(--u))]">
+            <div className="relative hidden lg:absolute lg:left-[calc(425*var(--u))] lg:top-[calc(220*var(--u))] lg:block lg:h-[calc(400*var(--u))] lg:w-[calc(240*var(--u))]">
               {c.photoBottom.src && (
                 <Image
                   src={c.photoBottom.src}

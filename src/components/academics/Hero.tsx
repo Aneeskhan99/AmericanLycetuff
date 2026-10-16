@@ -30,7 +30,7 @@ export default function Hero({ content: c }: { content: Content }) {
               className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,30,63,0.74)_0%,rgba(8,30,63,0.48)_55%,rgba(8,30,63,0.08)_100%)]"
             />
 
-            <div className="relative flex w-full flex-col items-center text-center text-white lg:w-auto lg:items-start lg:gap-[26px] lg:text-left">
+            <div className="relative flex w-full flex-col items-center text-center text-white lg:w-auto lg:items-start lg:gap-[16px] lg:text-left">
               <p className="text-[16px] font-medium uppercase leading-[25px] tracking-[1.77px] lg:text-[17.13px] lg:leading-[21px] lg:tracking-[1.9px]">
                 {c.eyebrow}
               </p>

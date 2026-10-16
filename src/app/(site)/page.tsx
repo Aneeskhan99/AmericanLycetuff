@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import AboutIntro from "@/components/home/AboutIntro";
 import Admissions from "@/components/home/Admissions";
+import Cambridge from "@/components/home/Cambridge";
+import Contests from "@/components/home/Contests";
 import DiscoverTabs from "@/components/home/DiscoverTabs";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import Location from "@/components/home/Location";
@@ -9,7 +11,6 @@ import { ScrollLineGroup } from "@/components/home/ScrollLines";
 import Stages from "@/components/home/Stages";
 import StatCards from "@/components/home/StatCards";
 import StemLabs from "@/components/home/StemLabs";
-import YouthSkills from "@/components/home/YouthSkills";
 import { homePage } from "@/content/home";
 import { getPageContent } from "@/lib/content-server";
 
@@ -31,9 +32,10 @@ export default async function Home() {
         <Stages content={c.stages} />
       </ScrollLineGroup>
       <Location content={c.location} />
-      <YouthSkills content={c.youth} />
+      <Cambridge content={c.cambridge} />
       <Admissions content={c.admissions} />
       <StemLabs content={c.labs} />
+      <Contests content={c.contests} />
       <Numbers content={c.numbers} />
       <DiscoverTabs content={c.discover} />
     </>

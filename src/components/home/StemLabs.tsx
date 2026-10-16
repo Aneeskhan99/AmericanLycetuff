@@ -8,22 +8,19 @@ import { ArrowBadge, ArrowCircle, body, btnCrimson, CmsLink, softBreaks, unoptim
 
 /** Intrinsic sizes of the bundled lab photos; anything else (uploads) is drawn at 1200 × 800 and cropped to the card. */
 const SIZES: Record<string, [number, number]> = {
-  "/images/home/lab-robotics.png": [1199, 839],
-  "/images/home/lab-science.png": [626, 417],
-  "/images/home/lab-computer.png": [1199, 798],
-  "/images/home/lab-physics.png": [1200, 900],
-  "/images/home/lab-chemistry.png": [736, 515],
+  "/images/home/lab-robotics-students.jpg": [2560, 1440],
+  "/images/home/lab-computer-ict.jpg": [2560, 1920],
 };
 
-const STEP = 423.307 + 12;
+const STEP = 423.307 + 39.693;
 
-/** "Discover our STEM Labs" slider (Figma Component 13). */
+/** "Discover our STEM Labs" (Figma 447:3109, two lab cards). When more cards are added than fit, the row scrolls and the slider controls appear (desktop). */
 export default function StemLabs({ content: c }: { content: HomeContent["labs"] }) {
   const labs = c.cards;
   const track = useRef<HTMLUListElement>(null);
   const [progress, setProgress] = useState(0);
   /** False when every card already fits (few labs): the slider controls are then hidden. */
-  const [scrollable, setScrollable] = useState(true);
+  const [scrollable, setScrollable] = useState(false);
 
   const sync = () => {
     const el = track.current;
@@ -55,18 +52,18 @@ export default function StemLabs({ content: c }: { content: HomeContent["labs"] 
   };
 
   return (
-    <section className="overflow-hidden bg-[#f2f2f2] px-[24px] py-[56px] lg:px-[6vw] lg:pb-[73px] lg:pt-[70.63px]">
+    <section className="overflow-hidden bg-[#f2f2f2] px-[24px] py-[56px] lg:px-[6vw] lg:py-[clamp(96px,7.44vw,142.85px)]">
       <div className="mx-auto max-w-[1330px]">
         <div className="flex flex-col lg:flex-row lg:items-start">
-          <div className="flex flex-col items-center text-center lg:w-[clamp(380px,28.33vw,544px)] lg:shrink-0 lg:items-start lg:pr-[clamp(48px,3.6vw,72px)] lg:text-left">
+          <div className="flex flex-col items-center text-center lg:w-[clamp(380px,25.68vw,493px)] lg:shrink-0 lg:items-start lg:pr-[clamp(48px,3.6vw,72px)] lg:text-left">
             <h2 className="font-inter text-[30px] leading-[34px] text-navy-ink lg:max-w-[440px] lg:text-[clamp(38px,2.6vw,49.89px)] lg:leading-[1.1515]">
               <Rich text={softBreaks(c.heading)} brClassName="hidden lg:block" />
             </h2>
-            {c.body && <p className={`${body} mt-[16px] text-black lg:mt-[19px] lg:max-w-[471px]`}>{c.body}</p>}
+            {c.body && <p className={`${body} mt-[16px] text-black lg:mt-[19px] lg:max-w-[412px]`}>{c.body}</p>}
             {c.button.label && c.button.href && (
               <CmsLink
                 href={c.button.href}
-                className={`${btnCrimson} w-full lg:mt-[36px] lg:w-auto lg:max-w-full lg:whitespace-normal lg:px-[clamp(20px,1.56vw,30px)] lg:text-[clamp(14px,0.892vw,17.134px)] lg:tracking-[0.11em]`}
+                className={`${btnCrimson} mt-[24px] w-full lg:mt-[79px] lg:w-auto lg:max-w-full lg:whitespace-normal lg:px-[clamp(20px,1.56vw,30px)] lg:text-[clamp(14px,0.892vw,17.134px)] lg:tracking-[0.11em]`}
               >
                 <span className="lg:hidden">{c.buttonShort || c.button.label}</span>
                 <span className="hidden lg:inline">{c.button.label}</span>
@@ -79,7 +76,7 @@ export default function StemLabs({ content: c }: { content: HomeContent["labs"] 
               ref={track}
               onScroll={sync}
               aria-label="Our STEM labs"
-              className="no-scrollbar mt-[32px] flex flex-col gap-[32px] lg:mr-[calc(50%-50vw)] lg:mt-[0.22px] lg:min-w-0 lg:flex-1 lg:snap-x lg:snap-mandatory lg:flex-row lg:gap-[12px] lg:overflow-x-auto"
+              className="no-scrollbar mt-[32px] flex flex-col gap-[32px] lg:mr-[calc(50%-50vw)] lg:mt-[0.22px] lg:min-w-0 lg:flex-1 lg:snap-x lg:snap-mandatory lg:flex-row lg:gap-[39.693px] lg:overflow-x-auto"
             >
               {labs.map((lab, i) => (
                 <li key={i} className="lg:w-[423.307px] lg:shrink-0 lg:snap-start">
@@ -128,8 +125,8 @@ export default function StemLabs({ content: c }: { content: HomeContent["labs"] 
         </div>
 
         {/* Slider range control + arrows (desktop) */}
-        {labs.length > 0 && (
-          <div className={`mt-[95.9px] hidden items-center gap-[19px] lg:flex ${scrollable ? "" : "invisible"}`}>
+        {labs.length > 0 && scrollable && (
+          <div className="mt-[60px] hidden items-center gap-[19px] lg:flex">
             <div
               className="relative h-[5px] flex-1 rounded-[5.042px]"
               style={

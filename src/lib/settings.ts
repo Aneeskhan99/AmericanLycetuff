@@ -36,8 +36,8 @@ export const DEFAULT_WORDMARK_MOBILE = "/images/shared/wordmark-swabi-mobile.svg
 export const DEFAULT_SETTINGS: Settings = {
   school: { name: "American Lycetuff", campusName: "Swabi Campus", tagline: "Learn, Grow & Shine" },
   contact: {
-    phone: "0938-320011",
-    phoneHref: "tel:+92938320011",
+    phone: "0317-1173886",
+    phoneHref: "tel:+923171173886",
     phoneAlt: "",
     whatsapp: "",
     email: "info@alsswabi.edu.pk",
@@ -46,10 +46,10 @@ export const DEFAULT_SETTINGS: Settings = {
     mapUrl: "https://www.google.com/maps/search/?api=1&query=American+Lycetuff+Swabi+Shahmansoor+Township",
   },
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
-    twitter: "https://twitter.com/",
-    linkedin: "https://www.linkedin.com/",
+    facebook: "https://www.facebook.com/share/1CqwcsuqRV/?mibextid=wwXIfr",
+    instagram: "https://www.instagram.com/alsswabiofficial?exln=MXNsaXdwbXJwbGd4bQ==",
+    twitter: "",
+    linkedin: "",
     youtube: "",
     tiktok: "",
   },

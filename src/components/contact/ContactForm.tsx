@@ -48,7 +48,7 @@ export default function ContactForm() {
     return (
       <SuccessPanel
         title="Thank you, your message has been sent."
-        body="Our team will get back to you promptly. If it is urgent, call us on 0938-320011 between 7:45 AM and 2:00 PM, Monday to Friday."
+        body="Our team will get back to you promptly. If it is urgent, call us on 0317-1173886 between 7:45 AM and 2:00 PM, Monday to Friday."
         againLabel="Send another message"
         onAgain={reset}
       />

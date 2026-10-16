@@ -32,18 +32,19 @@ export default function Hero({ eyebrow, title, intro, background, front, back }:
 
       <div className="frame gutter relative">
         <div className="relative mx-auto flex w-full max-w-[1498px] flex-col items-center py-[64px] lg:block lg:h-[clamp(620px,48.96vw,940px)] lg:py-0">
-          {/* Overlapping framed photos: stacked on mobile, top-right collage on desktop (B sits on top of A). */}
+          {/* Overlapping framed photos: stacked on mobile, top-right collage on desktop (B sits on top of A).
+              Desktop: 300x400 and 260x330 photos with the 10px white frame outside them (Figma outside stroke). */}
           <PhotoButton
             photo={front}
             preload
-            sizes="(min-width: 1024px) 300px, 100vw"
-            className="h-[445px] w-full border-10 border-white lg:absolute lg:right-[10px] lg:top-[min(4.6875vw,90px)] lg:h-[min(20.833vw,400px)] lg:w-[min(15.625vw,300px)]"
+            sizes="(min-width: 1024px) 320px, 100vw"
+            className="h-[445px] w-full border-10 border-white lg:absolute lg:right-0 lg:top-[min(4.167vw,80px)] lg:h-[min(21.875vw,420px)] lg:w-[min(16.667vw,320px)]"
           />
           <PhotoButton
             photo={back}
             preload
-            sizes="(min-width: 1024px) 260px, 100vw"
-            className="mt-[16px] h-[434px] w-full border-10 border-white lg:absolute lg:right-[min(10.9375vw,210px)] lg:top-[min(14.583vw,280px)] lg:mt-0 lg:h-[min(17.1875vw,330px)] lg:w-[min(13.542vw,260px)]"
+            sizes="(min-width: 1024px) 280px, 100vw"
+            className="mt-[16px] h-[434px] w-full border-10 border-white lg:absolute lg:right-[min(10.417vw,200px)] lg:top-[min(14.0625vw,270px)] lg:mt-0 lg:h-[min(18.229vw,350px)] lg:w-[min(14.583vw,280px)]"
           />
 
           <div className="mt-[20px] w-full text-center text-white lg:absolute lg:inset-x-0 lg:bottom-[min(5.104vw,98px)] lg:mt-0 lg:grid lg:grid-cols-[minmax(0,1fr)_min(430px,30vw)] lg:items-end lg:gap-x-[40px] lg:text-left">

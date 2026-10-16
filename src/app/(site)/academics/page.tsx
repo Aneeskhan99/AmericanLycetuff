@@ -4,6 +4,7 @@ import Approach from "@/components/academics/Approach";
 import Stages from "@/components/academics/Stages";
 import Qualifications from "@/components/academics/Qualifications";
 import BeyondTextbook from "@/components/academics/BeyondTextbook";
+import Contests from "@/components/academics/Contests";
 import ClosingCta from "@/components/academics/ClosingCta";
 import { academicsPage } from "@/content/academics";
 import { getPageContent } from "@/lib/content-server";
@@ -23,6 +24,7 @@ export default async function AcademicsPage() {
       <Stages content={c.stages} />
       <Qualifications content={c.qualifications} />
       <BeyondTextbook content={c.beyond} />
+      <Contests content={c.contests} />
       <ClosingCta content={c.cta} />
     </>
   );

@@ -212,6 +212,62 @@ export const academicsPage = definePage({
         ),
       },
     },
+    contests: {
+      label: "Where our students compete",
+      description:
+        "Contest logos grouped by category (a grid of cards on wide screens, a list on phones). The count next to each category is added automatically.",
+      fields: {
+        heading: f.text("Heading", "Where Our Students *Compete*", { max: 100, hint: HEADING_HINT }),
+        intro: f.textarea(
+          "Intro text",
+          "Our students test themselves against the best in Pakistan and beyond, in science, maths, English, art and innovation.",
+          { rows: 3, max: 300 },
+        ),
+        items: f.list(
+          "Contests",
+          {
+            group: f.text("Category", "", {
+              max: 60,
+              hint: "Contests with exactly the same category are shown together, in the order the categories first appear.",
+            }),
+            name: f.text("Contest name", "", { max: 90 }),
+            logo: f.image("Logo", { src: "", alt: "" }, { hint: "A wide logo on a white background works best." }),
+            result: f.text("Result (optional)", "", {
+              max: 60,
+              hint: "e.g. Gold, Kangaroo 2025. Leave empty to hide.",
+            }),
+          },
+          [
+            ["Science, technology and innovation", "International Kangaroo Science Contest", "kangaroo-science", "Kangaroo International"],
+            ["Science, technology and innovation", "National Science Contest", "national-science-contest", "NSC National Science Contest"],
+            ["Science, technology and innovation", "Talent Hunt (NSTC-23), HEC National Science Talent Contest", "hec-nstc", "HEC NSTC"],
+            ["Science, technology and innovation", "National AI Classroom for Kids", "kaabil-ai-classroom", "Kaabil National AI Classroom for Kids"],
+            ["Science, technology and innovation", "Future Innovators Conference 2026 (Future Club)", "future-club-innovators", "Future Innovators Conference 2026, Future Club"],
+            ["Maths, English and olympiads", "ALS Spelling Bee (network-wide)", "als-spelling-bee", "ALS Spelling Bee"],
+            ["Maths, English and olympiads", "National Math & English Contest", "nmec", "NMEC National Math & English Contest"],
+            ["Maths, English and olympiads", "Pakistan Math Contest (PMC)", "pakistan-math-contest", "PMC Pakistan Mathematics Contest"],
+            ["Maths, English and olympiads", "Cheezious MATHmania Season 2", "cheezious-mathmania", "Cheezious MATHmania"],
+            ["Maths, English and olympiads", "International CATS Contest", "icats", "ICATS International CATS Contest"],
+            ["Maths, English and olympiads", "Great Future Talent Olympiad 2026", "great-future-talent-olympiad", "Great Future Talent Olympiad 2026"],
+            ["Maths, English and olympiads", "Mega Math & English Linguistic Quiz 2026–27", "mega-math-english-quiz", "Mega Math & English Linguistic Quiz 2026–27"],
+            ["Arts, writing and talent", "IAC International Art Contest", "iac-art-contest", "IAC International Art Contest"],
+            ["Arts, writing and talent", "Talent Hunt Programme", "talent-hunt-programme", "Talent Hunt Programme"],
+            ["Arts, writing and talent", "ALS Story Writing Competition", "als-story-writing", "ALS Story Writing Competition"],
+            ["Programmes and awards", "Global Champs Services", "global-champs", "Global Champs Services"],
+            ["Programmes and awards", "Great Future Pakistan", "great-future-pakistan", "Great Future Pakistan"],
+            ["Programmes and awards", "Pakistan Science Foundation", "pakistan-science-foundation", "PSF Pakistan Science Foundation"],
+            ["Programmes and awards", "Illumined Minds", "illumined-minds", "Illumined Minds"],
+            ["Programmes and awards", "ISOF Education & Vision International Awards", "isof-awards", "ISOF Education & Vision International Awards"],
+          ].map(([group, name, file, alt]) => ({
+            group,
+            name,
+            logo: { src: `/images/academics/contests/${file}.png`, alt: `${alt} logo` },
+            result: "",
+          })),
+          { itemTitle: "name", max: 60 },
+        ),
+      },
+    },
     cta: {
       label: "Closing banner",
       description: "Full-width photo banner at the bottom of the page.",

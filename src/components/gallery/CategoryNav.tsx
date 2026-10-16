@@ -42,7 +42,7 @@ export default function CategoryNav({ intro }: { intro: string }) {
             aria-label="Filter photos by category"
             className="no-scrollbar flex gap-[8px] overflow-x-auto overscroll-x-contain scroll-px-[24px] px-[24px] lg:flex-wrap lg:gap-x-[clamp(24px,2.29vw,44px)] lg:gap-y-[20px] lg:overflow-visible lg:px-0"
           >
-            {filters.map((f) => {
+            {filters.filter((f) => !f.hidden).map((f) => {
               const active = f.id === filter;
               return (
                 <button

@@ -16,14 +16,15 @@ export type CategoryId =
 
 export type FilterId = "all" | CategoryId;
 
-export const filters: { id: FilterId; label: string }[] = [
+/** `hidden` tabs stay valid categories (albums, tab lists) but are not shown as filter tabs. */
+export const filters: { id: FilterId; label: string; hidden?: boolean }[] = [
   { id: "all", label: "All" },
   { id: "campus-tour", label: "Campus Tour" },
   { id: "classrooms", label: "Classrooms" },
   { id: "stem-robotics", label: "STEM & Robotics" },
   { id: "sports-events", label: "Sports & Events" },
   { id: "cultural-days", label: "Cultural Days" },
-  { id: "youth-skills", label: "Youth Skills Programme" },
+  { id: "youth-skills", label: "Youth Skills Programme", hidden: true },
 ];
 
 export const CATEGORY_IDS = filters.filter((f) => f.id !== "all").map((f) => f.id as CategoryId);
@@ -49,6 +50,23 @@ export type ImageMeta = Record<string, { width: number; height: number; srcSet?:
 
 /** Intrinsic sizes of the designed photos shipped in /public/images/gallery. */
 export const STATIC_META: ImageMeta = {
+  "/images/gallery/hero-students-red-caps-cheering.jpg": { width: 2344, height: 1552 },
+  "/images/gallery/hero-girl-green-dress.jpg": { width: 1560, height: 2344 },
+  "/images/gallery/hero-boy-red-ribbons.jpg": { width: 1552, height: 2344 },
+  "/images/gallery/campus-kindergarten-playhouse.jpg": { width: 2400, height: 1350 },
+  "/images/gallery/campus-kindergarten-lawn-play.jpg": { width: 2400, height: 1350 },
+  "/images/gallery/campus-play-learn-classroom.jpg": { width: 2400, height: 1800 },
+  "/images/gallery/moment-morning-assembly.jpg": { width: 2400, height: 1800 },
+  "/images/gallery/stem-coding-computer-lab.jpg": { width: 2400, height: 1800 },
+  "/images/gallery/stem-circuit-breadboard.jpg": { width: 2400, height: 1350 },
+  "/images/gallery/stem-group-study.jpg": { width: 2400, height: 1350 },
+  "/images/gallery/strip-blue-team-parade.jpg": { width: 2344, height: 1552 },
+  "/images/gallery/strip-cultural-dress-children.jpg": { width: 2344, height: 1552 },
+  "/images/gallery/strip-assessment-certificates.jpg": { width: 2400, height: 1800 },
+  "/images/gallery/strip-helicopter-visit.jpg": { width: 2400, height: 1688 },
+  "/images/gallery/strip-field-trip-monument.jpg": { width: 2400, height: 1350 },
+  "/images/gallery/strip-junior-classroom.jpg": { width: 2400, height: 1800 },
+  "/images/gallery/tour-campus-aerial.jpg": { width: 1440, height: 1080 },
   "/images/gallery/campus-cultural-dance.jpg": { width: 4024, height: 2696 },
   "/images/gallery/campus-students-blue-caps.jpg": { width: 4024, height: 2696 },
   "/images/gallery/campus-students-green-day.jpg": { width: 4024, height: 2696 },

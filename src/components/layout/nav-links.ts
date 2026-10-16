@@ -29,8 +29,8 @@ export const footerNav: NavLink[] = [
 
 export const contact = {
   name: "American Lycetuff",
-  phone: "0938-320011",
-  phoneHref: "tel:+92938320011",
+  phone: "0317-1173886",
+  phoneHref: "tel:+923171173886",
   email: "info@alsswabi.edu.pk",
   address: "Sector-E, Shahmansoor Township Swabi, Khyber Pakhtunkhwa",
 };

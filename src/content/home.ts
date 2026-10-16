@@ -204,20 +204,35 @@ export const homePage = definePage({
         ),
       },
     },
-    youth: {
-      label: "Youth Skills Programme",
-      description: "Navy band with the Prime Minister's Youth Skills Programme and the photo of students.",
+    cambridge: {
+      label: "Cambridge panel",
+      description: "Navy band about Cambridge IGCSE and O Level, with the ticked highlights, two buttons and the photo of students.",
       fields: {
-        eyebrow: f.text("Small label above the heading", "Government of Pakistan · Free of cost program", { max: 70 }),
-        heading: f.text("Heading", "Prime Minister's *Youth Skills* Programme", { max: 100, hint: HEADING_HINT }),
+        eyebrow: f.text("Small label above the heading", "Cambridge International", { max: 70 }),
+        heading: f.text("Heading", "Cambridge IGCSE and O Level,\n*Right Here in Swabi*", {
+          max: 100,
+          hint: `${HEADING_HINT} Press Enter for a line break (used on computers only).`,
+        }),
         body: f.textarea(
           "Paragraph",
-          "We are proud to host short professional courses under the Government of Pakistan's Youth Skills Programme at our Swabi campus. The courses are completely free of cost and open to young adults across the district, not only our own students.",
+          "In Grades 9 and 10, students can choose the Cambridge route alongside FBISE SSC. It is an internationally recognised qualification with a strong focus on English, science and mathematics, and a natural step to A Levels, without leaving Swabi.",
           { rows: 5, max: 600 },
         ),
-        button: f.link("Button", { label: "How to apply", href: "/enquire" }, { hint: BUTTON_HINT }),
+        points: f.list(
+          "Ticked highlights",
+          { text: f.text("Highlight", "", { max: 90 }) },
+          [
+            { text: "IGCSE and O Level in Grades 9 and 10" },
+            { text: "Teachers who know what each paper demands" },
+            { text: "Regular mock exams and past paper practice" },
+            { text: "A direct route to A Levels" },
+          ],
+          { itemTitle: "text", max: 6 },
+        ),
+        button: f.link("First button (white)", { label: "Explore Cambridge", href: "/academics" }, { hint: BUTTON_HINT }),
+        button2: f.link("Second button (outlined)", { label: "Book a campus visit", href: "/enquire?type=visit" }, { hint: BUTTON_HINT }),
         photo: f.image("Photo", {
-          src: "/images/home/youth-skills-students.jpg",
+          src: "/images/home/cambridge-students.jpg",
           alt: "Smiling students in blue caps making victory signs",
         }),
       },
@@ -253,7 +268,7 @@ export const homePage = definePage({
     },
     labs: {
       label: "STEM labs",
-      description: "\"Discover our STEM Labs\" with the sliding lab cards.",
+      description: "\"Discover our STEM Labs\" with the lab cards (computers add a slider when the cards do not fit).",
       fields: {
         heading: f.text("Heading", "Discover our\nSTEM Labs", {
           max: 80,
@@ -278,14 +293,54 @@ export const homePage = definePage({
             href: f.text("Card links to", "/stem-robotics", { hint: PAGE_LINK_HINT }),
           },
           [
-            { kind: "Build", title: "Robotics Laboratory", photo: { src: "/images/home/lab-robotics.png", alt: "Robotics Laboratory" }, href: "/stem-robotics" },
-            { kind: "Investigate", title: "Science Laboratory", photo: { src: "/images/home/lab-science.png", alt: "Science Laboratory" }, href: "/stem-robotics" },
-            { kind: "Code", title: "Computer & ICT Lab", photo: { src: "/images/home/lab-computer.png", alt: "Computer & ICT Lab" }, href: "/stem-robotics" },
-            { kind: "Build", title: "Physics Lab", photo: { src: "/images/home/lab-physics.png", alt: "Physics Lab" }, href: "/stem-robotics" },
-            { kind: "Build", title: "Chemistry Lab", photo: { src: "/images/home/lab-chemistry.png", alt: "Chemistry Lab" }, href: "/stem-robotics" },
-            { kind: "Build", title: "Bio Lab", photo: { src: "/images/home/lab-chemistry.png", alt: "Bio Lab" }, href: "/stem-robotics" },
+            {
+              kind: "Build",
+              title: "Robotics Laboratory",
+              photo: { src: "/images/home/lab-robotics-students.jpg", alt: "Students building a line-following robot together in the robotics lab" },
+              href: "/stem-robotics",
+            },
+            {
+              kind: "Code",
+              title: "Computer & ICT Laboratory",
+              photo: { src: "/images/home/lab-computer-ict.jpg", alt: "Students at their computers listening to the teacher in the computer lab" },
+              href: "/stem-robotics",
+            },
           ],
-          { itemTitle: "title", max: 12 },
+          { itemTitle: "title", max: 12, hint: "Two cards fit the design best." },
+        ),
+      },
+    },
+    contests: {
+      label: "Where our students compete",
+      description: "\"Where Our Students Compete\": the row of contest logos (phones show the first six).",
+      fields: {
+        heading: f.text("Heading", "Where Our Students *Compete*", { max: 80, hint: HEADING_HINT }),
+        body: f.textarea(
+          "Paragraph",
+          "Our students test themselves against the best in Pakistan and beyond, in science, maths, English, art and innovation.",
+          { rows: 3, max: 300 },
+        ),
+        link: f.link("Link", { label: "See all contests and programmes", href: "/academics#contests-title" }, { hint: BUTTON_HINT }),
+        linkShort: f.text("Link text on phones", "See all contests", {
+          max: 30,
+          hint: "A shorter label for small screens. Leave empty to use the link label.",
+        }),
+        items: f.list(
+          "Contests",
+          {
+            name: f.text("Contest name", "", { max: 60 }),
+            logo: f.image("Logo", { src: "", alt: "" }, { hint: "A logo on a white background works best." }),
+          },
+          [
+            { name: "International Kangaroo Science Contest", logo: { src: "/images/home/contest-kangaroo.png", alt: "Kangaroo International logo" } },
+            { name: "National Science Contest", logo: { src: "/images/home/contest-national-science.png", alt: "National Science Contest logo" } },
+            { name: "HEC National Science Talent Contest", logo: { src: "/images/home/contest-hec-nstc.png", alt: "HEC National Science Talent Contest logo" } },
+            { name: "Pakistan Math Contest", logo: { src: "/images/home/contest-pakistan-math.png", alt: "Pakistan Mathematics Contest logo" } },
+            { name: "Cheezious MATHmania Season 2", logo: { src: "/images/home/contest-cheezious-mathmania.png", alt: "Cheezious MATHmania logo" } },
+            { name: "IAC International Art Contest", logo: { src: "/images/home/contest-iac-art.png", alt: "IAC International Art Contest logo" } },
+            { name: "ALS Spelling Bee", logo: { src: "/images/home/contest-als-spelling-bee.png", alt: "ALS Spelling Bee logo" } },
+          ],
+          { itemTitle: "name", max: 14, hint: "Seven logos fill one row on computers; phones show the first six." },
         ),
       },
     },
@@ -313,9 +368,8 @@ export const homePage = definePage({
             { value: "1:15", label: "teacher-to-student ratio in the classroom" },
             { value: "100%", label: "pass rate in our latest SSC batch" },
             { value: "50+", label: "student projects built in our labs" },
-            { value: "3000+", label: "young adults trained through the Youth Skills Programme" },
           ],
-          { itemTitle: "value", max: 8, hint: "Six figures (three rows of two) fit the design best." },
+          { itemTitle: "value", max: 8, hint: "Five or six figures (three rows of two) fit the design best." },
         ),
       },
     },

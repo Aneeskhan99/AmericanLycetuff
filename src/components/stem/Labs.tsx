@@ -6,13 +6,13 @@ import { ChipGroup, CropImage, Eyebrow, lines, type Crop } from "./ui";
 type Content = PageContent<typeof stemRoboticsPage>["labs"];
 type LabItem = Content["items"][number];
 
-/** Per-position layout from the design (navy / crimson / blue). Labs beyond the third repeat the cycle. */
+/** Per-position layout from the design (navy / blue, photo sides alternating). Labs beyond the third repeat the cycle. */
 type Layout = {
   id: string;
   bg: string;
   /** Desktop: which half the photo occupies. */
   imageSide: "left" | "right";
-  /** Mobile: the science lab leads with its watermark word; the others lead with the photo. */
+  /** Mobile: lead with the watermark word instead of the photo (no lab in the current design does). */
   mobileWatermarkFirst?: boolean;
   /** Mobile gap between the two chip groups. */
   groupGap: string;
@@ -31,17 +31,17 @@ const layouts: Layout[] = [
     noteLeft: "lg:right-[calc(50%+60*var(--u))]",
   },
   {
-    id: "science-lab",
-    bg: "bg-crimson",
+    id: "ict-lab",
+    bg: "bg-navy",
     imageSide: "right",
-    mobileWatermarkFirst: true,
     groupGap: "mt-[18px]",
     watermarkLeft: "lg:left-[calc(40*var(--u))]",
     noteLeft: "lg:left-[calc(50%+60*var(--u))]",
   },
   {
-    id: "ict-lab",
-    bg: "bg-navy",
+    // Not in the current design (the science lab is hidden); used if a third laboratory is added.
+    id: "science-lab",
+    bg: "bg-crimson",
     imageSide: "left",
     groupGap: "mt-[18px]",
     watermarkLeft: "lg:left-[calc(1000*var(--u))]",
@@ -51,9 +51,11 @@ const layouts: Layout[] = [
 
 /** Figma crops for the original photos; a replaced photo is simply cover-fitted. */
 const crops: Record<string, Crop> = {
-  "/images/stem/lab-robotics.jpg": { left: -8.75, top: -2.815, width: 117.5, height: 105.75 },
+  // Robotics Laboratory photo (first lab, photo on the left).
+  "/images/stem/lab-ict-students-breadboard.jpg": { left: -8.75, top: -2.815, width: 117.5, height: 105.75 },
+  // Computer & ICT Laboratory photo (second lab, photo on the right).
+  "/images/stem/lab-robotics.jpg": { left: -24.0625, top: 0.06, width: 148.125, height: 100 },
   "/images/stem/lab-science.jpg": { left: -31.146, top: -4.69, width: 162.29, height: 109.5 },
-  "/images/stem/lab-ict-students-breadboard.jpg": { left: -24.0625, top: 0.06, width: 148.125, height: 100 },
 };
 
 type Lab = Layout & {

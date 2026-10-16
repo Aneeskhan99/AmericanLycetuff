@@ -54,7 +54,7 @@ export function CropImage({
 export function Eyebrow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <p
-      className={`text-[13px] font-semibold uppercase leading-[20px] tracking-[1.9847px] lg:text-[13.1px] lg:leading-normal lg:tracking-[2px] ${className}`}
+      className={`text-[13px] font-semibold uppercase leading-[20px] tracking-[1.9847px] lg:text-[13.1px] lg:leading-[normal] lg:tracking-[2px] ${className}`}
     >
       {children}
     </p>
@@ -67,7 +67,7 @@ export function ChipGroup({ label, chips, tone }: { label: string; chips: string
   return (
     <div className="flex w-full flex-col items-center gap-[12px] lg:items-start">
       {label && (
-        <p className="w-full text-center text-[13px] font-semibold uppercase leading-[20px] tracking-[2.7083px] text-[#fd0] lg:text-left lg:text-[12px] lg:leading-normal lg:tracking-[2.5px]">
+        <p className="w-full text-center text-[13px] font-semibold uppercase leading-[20px] tracking-[2.7083px] text-[#fd0] lg:text-left lg:text-[12px] lg:leading-[normal] lg:tracking-[2.5px]">
           {label}
         </p>
       )}
