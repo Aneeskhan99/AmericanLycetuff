@@ -14,15 +14,15 @@ export default function EnquirySection({ content: c, info }: Props) {
     <section aria-label="Enquiry form" className="bg-[#f8f8f8]">
       <div className="frame gutter py-[56px] lg:pb-[128.5px] lg:pt-0">
         {/* On desktop the card and side panel overlap the hero by 171.5px */}
-        <div className="relative z-10 mx-auto flex max-w-[1498px] flex-col lg:mt-[-171.5px] lg:flex-row lg:items-start lg:gap-[48px]">
+        <div className="relative z-10 mx-auto flex max-w-[1498px] flex-col lg:mt-[-171.5px] lg:flex-row lg:items-start lg:gap-[clamp(28px,2.5vw,48px)]">
           {/* Form card */}
-          <div className="w-full bg-white p-[24px] shadow-[0_24px_30px_rgba(0,0,0,0.1)] lg:relative lg:max-w-[980px] lg:px-[56px] lg:pb-[46px] lg:pt-[64px]">
+          <div className="w-full bg-white p-[24px] shadow-[0_24px_30px_rgba(0,0,0,0.1)] lg:relative lg:max-w-[980px] lg:px-[clamp(32px,2.92vw,56px)] lg:pb-[46px] lg:pt-[64px]">
             <div aria-hidden className="absolute inset-x-0 top-0 hidden h-[6px] bg-crimson lg:block" />
             <EnquiryForm />
           </div>
 
           {/* Side column */}
-          <aside className="mt-[32px] flex w-full flex-col lg:mt-0 lg:w-[470px] lg:shrink-[0.6]">
+          <aside className="mt-[32px] flex w-full flex-col lg:mt-0 lg:w-[clamp(340px,24.5vw,470px)] lg:shrink-0">
             <div className="relative bg-navy p-[24px] text-white lg:px-[44px] lg:pb-[50px] lg:pt-[60px]">
               <div aria-hidden className="absolute inset-x-0 top-0 hidden h-[6px] bg-[#fd0] lg:block" />
               <h2 className="text-[30px] leading-[34px] lg:text-[clamp(36px,2.5vw,48px)] lg:leading-[1.1667]">

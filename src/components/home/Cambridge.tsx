@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Rich } from "@/components/site/Rich";
 import type { HomeContent } from "@/content/home";
-import { btn, btnWhite, CmsLink, softBreaks, unoptimized } from "./ui";
+import { btn, btnFit, btnWhite, CmsLink, softBreaks, unoptimized } from "./ui";
 
 const DEFAULT_PHOTO = "/images/home/cambridge-students.jpg";
 /** Desktop crop of the default photo (from Figma). Any other photo simply covers the panel. */
@@ -22,7 +22,7 @@ export default function Cambridge({ content: c }: { content: HomeContent["cambri
       <div
         aria-hidden
         className="pointer-events-none absolute z-10 hidden aspect-[371.87/282.83] w-[clamp(220px,19.37vw,371.87px)] overflow-hidden lg:block"
-        style={{ left: "calc(max(41.2%, 500px) - clamp(80px, 7.09vw, 136px))", top: "calc(clamp(220px, 19.37vw, 371.87px) * -0.7606 + clamp(30px, 26.5vw - 360px, 148px) + clamp(0px, (1920px - 100vw) * 0.064, 40px))" }}
+        style={{ left: "calc(max(41.2%, 560px) - clamp(80px, 7.09vw, 136px))", top: "calc(clamp(220px, 19.37vw, 371.87px) * -0.7606 + clamp(30px, 26.5vw - 360px, 148px) + clamp(0px, (1920px - 100vw) * 0.064, 40px))" }}
       >
         <Image
           src="/images/home/school-cap.png"
@@ -62,7 +62,7 @@ export default function Cambridge({ content: c }: { content: HomeContent["cambri
         )}
       </div>
 
-      <div className="px-[24px] py-[32px] lg:order-1 lg:flex lg:w-[41.2%] lg:min-w-[500px] lg:items-center lg:bg-navy-deep lg:py-[clamp(40px,3.5vw,67px)] lg:pl-[clamp(40px,6.4vw,123px)] lg:pr-[clamp(24px,4.4vw,84px)]">
+      <div className="px-[24px] py-[32px] lg:order-1 lg:flex lg:w-[41.2%] lg:min-w-[560px] lg:items-center lg:bg-navy-deep lg:py-[clamp(40px,3.5vw,67px)] lg:pl-[clamp(40px,6.4vw,123px)] lg:pr-[clamp(32px,4.4vw,84px)]">
         <div className="flex flex-col items-center bg-navy-deep px-[24px] py-[40px] text-center text-white lg:w-full lg:max-w-[584px] lg:items-start lg:bg-transparent lg:p-0 lg:text-left">
           {c.eyebrow && (
             <p className="font-inter text-[13px] font-semibold uppercase leading-[16px] tracking-[2.2px] text-[#fd0] lg:text-[13.1px] lg:tracking-[2.4px]">
@@ -98,14 +98,14 @@ export default function Cambridge({ content: c }: { content: HomeContent["cambri
           )}
 
           {(hasButton || hasButton2) && (
-            <div className="mt-[28px] flex w-full flex-col gap-[12px] lg:mt-[36px] lg:w-auto lg:flex-row lg:flex-wrap lg:gap-[16px]">
+            <div className="mt-[28px] flex w-full flex-col gap-[12px] lg:mt-[36px] lg:w-auto lg:flex-row lg:flex-nowrap lg:gap-[clamp(10px,0.83vw,16px)]">
               {hasButton && (
-                <CmsLink href={c.button.href} className={`${btnWhite} w-full lg:w-auto lg:px-[26px]`}>
+                <CmsLink href={c.button.href} className={`${btnWhite} w-full lg:w-auto ${btnFit}`}>
                   {c.button.label}
                 </CmsLink>
               )}
               {hasButton2 && (
-                <CmsLink href={c.button2.href} className={`${btnStroked} w-full py-[17px] lg:w-auto lg:px-[26px] lg:py-[16.42px]`}>
+                <CmsLink href={c.button2.href} className={`${btnStroked} w-full py-[17px] lg:w-auto lg:py-[16.42px] ${btnFit}`}>
                   {c.button2.label}
                 </CmsLink>
               )}

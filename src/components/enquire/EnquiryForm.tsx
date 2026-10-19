@@ -88,7 +88,7 @@ function Field({
   return (
     // On desktop each field spans 3 subgrid rows (label / control / error) so side-by-side
     // controls stay aligned even when one label wraps onto two lines.
-    <div className={`lg:row-span-3 lg:grid lg:grid-rows-subgrid lg:gap-y-0 ${className}`}>
+    <div className={`min-w-0 lg:row-span-3 lg:grid lg:grid-cols-[minmax(0,1fr)] lg:grid-rows-subgrid lg:gap-y-0 ${className}`}>
       <div className="flex flex-col gap-[12px] lg:flex-row lg:items-baseline lg:justify-between lg:gap-[16px] lg:self-end">
         <label
           htmlFor={id}
@@ -168,9 +168,9 @@ export default function EnquiryForm() {
     <div className="relative border border-[#d6d6d6] bg-white transition-colors has-[:focus-visible]:border-navy has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-navy/20">
       <div
         aria-hidden
-        className="flex min-h-[58px] items-center py-[16px] pl-[21px] pr-[56px] text-[16px] font-medium leading-[25px] text-navy lg:text-[17px]"
+        className="flex min-h-[58px] items-center py-[16px] pl-[21px] pr-[56px] text-[16px] font-medium leading-[25px] text-navy lg:pr-[46px] lg:text-[clamp(15px,0.89vw,17px)]"
       >
-        {values[name] || placeholder}
+        <span className="min-w-0 lg:truncate">{values[name] || placeholder}</span>
       </div>
       <select
         id={`enq-${name}`}
@@ -192,7 +192,7 @@ export default function EnquiryForm() {
         aria-hidden
         width={12}
         height={8}
-        className="pointer-events-none absolute right-[24px] top-1/2 h-[8.25px] w-[12.12px] -translate-y-1/2 rotate-180 lg:right-[37px]"
+        className="pointer-events-none absolute right-[24px] top-1/2 h-[8.25px] w-[12.12px] -translate-y-1/2 rotate-180 lg:right-[24px] min-[1600px]:right-[37px]"
       />
     </div>
   );
@@ -204,8 +204,8 @@ export default function EnquiryForm() {
       {/* 01 About you */}
       <section aria-labelledby="enq-about-you">
         <SectionHeading num="01" title="About you" id="enq-about-you" />
-        <div className="mt-[24px] grid grid-cols-1 gap-[18px] lg:mt-[30px] lg:grid-cols-2 lg:gap-x-[20px] lg:gap-y-0 lg:[&>*]:pb-[20px]">
-          <Field id="enq-name" label="Parent / guardian name" required error={visibleError("name")} className="lg:col-span-2">
+        <div className="mt-[24px] grid grid-cols-1 gap-[18px] lg:mt-[30px] xl:grid-cols-2 lg:gap-x-[20px] lg:gap-y-0 lg:[&>*]:pb-[20px]">
+          <Field id="enq-name" label="Parent / guardian name" required error={visibleError("name")} className="xl:col-span-2">
             {text("name", "text", "Your full name", "name", true)}
           </Field>
           <Field id="enq-phone" label="Phone number" required error={visibleError("phone")}>
@@ -223,14 +223,14 @@ export default function EnquiryForm() {
       {/* 02 About your child */}
       <section aria-labelledby="enq-about-child" className="mt-[26px] lg:mt-[30px]">
         <SectionHeading num="02" title="About your child" id="enq-about-child" />
-        <div className="mt-[24px] grid grid-cols-1 gap-[18px] lg:mt-[30px] lg:grid-cols-2 lg:gap-x-[20px] lg:gap-y-0 lg:[&>*]:pb-[20px]">
+        <div className="mt-[24px] grid grid-cols-1 gap-[18px] lg:mt-[30px] xl:grid-cols-2 lg:gap-x-[20px] lg:gap-y-0 lg:[&>*]:pb-[20px]">
           <Field id="enq-childName" label="Child's name">
             {text("childName", "text", "Your child's name", "off")}
           </Field>
           <Field id="enq-grade" label="Grade your child is applying for">
             {select("grade", "Play Group … Grade 10", grades)}
           </Field>
-          <Field id="enq-pathway" label="Pathway of interest" className="lg:col-span-2">
+          <Field id="enq-pathway" label="Pathway of interest" className="xl:col-span-2">
             {select("pathway", "Not sure yet / FBISE SSC / Cambridge IGCSE / O Level", pathways)}
           </Field>
         </div>

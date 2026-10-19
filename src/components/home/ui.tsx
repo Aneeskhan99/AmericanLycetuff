@@ -41,6 +41,10 @@ export function CmsLink({ href, className, children, tabIndex }: { href: string;
 export const btn =
   "inline-flex items-center justify-center px-[30px] py-[17px] text-center font-inter text-[17.134px] uppercase leading-[20.157px] tracking-[1.8898px] whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson";
 
+/** Smaller laptops: shrink text, letter spacing and padding so a pair of buttons stays on one line. */
+export const btnFit =
+  "lg:px-[clamp(14px,1.35vw,26px)] lg:text-[clamp(13px,0.892vw,17.134px)] lg:tracking-[clamp(0.8px,0.098vw,1.8898px)]";
+
 export const btnCrimson = `${btn} bg-crimson text-white hover:bg-navy`;
 export const btnNavy = `${btn} border border-navy bg-navy text-white hover:border-crimson hover:bg-crimson`;
 export const btnWhite = `${btn} bg-white font-medium text-crimson hover:bg-navy hover:text-white`;

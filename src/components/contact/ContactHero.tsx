@@ -27,11 +27,11 @@ export default function ContactHero({ content: c, info }: Props) {
             <p className="mt-[16px] text-[18px] leading-[28px] tracking-[0.36px] text-[#5c5c5c] lg:mt-[17px] lg:max-w-[520px] lg:text-[20px] lg:leading-[32px] lg:tracking-[0.4px]">
               {c.intro}
             </p>
-            <div className="mt-[24px] flex w-full flex-col gap-[12px] lg:mt-[64px] lg:w-auto lg:flex-row lg:flex-wrap lg:gap-[20px]">
-              <CmsLink href={c.messageButton.href} className={`${btnCrimson} w-full lg:w-auto`}>
+            <div className="mt-[24px] flex w-full flex-col gap-[12px] lg:mt-[64px] lg:w-auto lg:flex-row lg:flex-nowrap lg:gap-[clamp(12px,1.04vw,20px)]">
+              <CmsLink href={c.messageButton.href} className={`${btnCrimson} w-full lg:w-auto lg:px-[clamp(16px,1.56vw,30px)] lg:text-[clamp(14px,0.892vw,17.13px)] lg:tracking-[clamp(1px,0.098vw,1.9px)]`}>
                 {c.messageButton.label}
               </CmsLink>
-              <a href={info.phoneHref} className={`${btnStrokedNavy} w-full lg:w-auto`}>
+              <a href={info.phoneHref} className={`${btnStrokedNavy} w-full lg:w-auto lg:px-[clamp(16px,1.56vw,30px)] lg:text-[clamp(14px,0.892vw,17.13px)] lg:tracking-[clamp(1px,0.098vw,1.9px)]`}>
                 {c.callPrefix} {info.phone}
               </a>
             </div>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useId, useState, type CSSProperties, type KeyboardEvent } from "react";
 import type { HomeContent } from "@/content/home";
-import { ArrowCircle, btn, btnCrimson, CmsLink, unoptimized } from "./ui";
+import { ArrowCircle, btn, btnCrimson, btnFit, CmsLink, unoptimized } from "./ui";
 
 type Content = HomeContent["discover"];
 
@@ -139,16 +139,16 @@ export default function DiscoverTabs({ content: c }: { content: Content }) {
               {t.text}
             </p>
             {((c.button.label && c.button.href) || (c.button2.label && c.button2.href)) && (
-              <div className="mt-[24px] flex w-full flex-col gap-[12px] lg:mt-[41.5px] lg:w-auto lg:flex-row lg:flex-wrap lg:gap-[10px]">
+              <div className="mt-[24px] flex w-full flex-col gap-[12px] lg:mt-[41.5px] lg:w-auto lg:flex-row lg:flex-nowrap lg:gap-[10px]">
                 {c.button.label && c.button.href && (
-                  <CmsLink href={c.button.href} className={`${btnCrimson} w-full lg:w-auto`}>
+                  <CmsLink href={c.button.href} className={`${btnCrimson} w-full lg:w-auto ${btnFit}`}>
                     {c.button.label}
                   </CmsLink>
                 )}
                 {c.button2.label && c.button2.href && (
                   <CmsLink
                     href={c.button2.href}
-                    className={`${btn} w-full border border-black text-black hover:bg-black hover:text-white lg:w-auto`}
+                    className={`${btn} w-full border border-black text-black hover:bg-black hover:text-white lg:w-auto ${btnFit}`}
                   >
                     {c.button2.label}
                   </CmsLink>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Rich } from "@/components/site/Rich";
 import type { academicsPage } from "@/content/academics";
 import type { PageContent } from "@/lib/content";
-import { Container, num, unoptimized } from "./ui";
+import { Container, unoptimized } from "./ui";
 
 type Content = PageContent<typeof academicsPage>["contests"];
 type Item = Content["items"][number];
@@ -49,10 +49,6 @@ export default function Contests({ content: c }: { content: Content }) {
                     {g.title}
                   </h3>
                   <span aria-hidden className="hidden h-px min-w-px flex-1 bg-[#d6d6d6] lg:block" />
-                  <span className="order-first bg-navy px-[8px] py-[3px] text-[11px] font-semibold leading-[13px] tracking-[0.5px] text-white lg:order-none lg:bg-transparent lg:p-0 lg:text-[14px] lg:leading-[17px] lg:tracking-[1px] lg:text-navy">
-                    <span className="sr-only">Contests: </span>
-                    {num(g.items.length - 1)}
-                  </span>
                 </div>
 
                 <ul className="flex flex-col border border-[#d6d6d6] bg-white px-[16px] lg:grid lg:grid-cols-3 lg:gap-[24px] lg:border-0 lg:bg-transparent lg:p-0 xl:grid-cols-4">
