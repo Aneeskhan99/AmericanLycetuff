@@ -266,9 +266,9 @@ export const homePage = definePage({
         button: f.link("Button", { label: "Apply for 2027-28", href: "/admissions" }, { hint: BUTTON_HINT }),
       },
     },
-    labs: {
+    stemLabs: {
       label: "STEM labs",
-      description: "\"Discover our STEM Labs\" with the lab cards (computers add a slider when the cards do not fit).",
+      description: "\"Discover our STEM Labs\" with the two lab cards (extra cards start a new row).",
       fields: {
         heading: f.text("Heading", "Discover our\nSTEM Labs", {
           max: 80,

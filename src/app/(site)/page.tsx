@@ -34,7 +34,7 @@ export default async function Home() {
       <Location content={c.location} />
       <Cambridge content={c.cambridge} />
       <Admissions content={c.admissions} />
-      <StemLabs content={c.labs} />
+      <StemLabs content={c.stemLabs} />
       <Contests content={c.contests} />
       <Numbers content={c.numbers} />
       <DiscoverTabs content={c.discover} />
