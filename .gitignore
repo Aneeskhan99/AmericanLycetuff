@@ -43,3 +43,5 @@ next-env.d.ts
 data/
 public/videos/*.mp4
 _zips_can_delete/
+
+*.tar.gz
