@@ -320,7 +320,7 @@ export const homePage = definePage({
           "Our students test themselves against the best in Pakistan and beyond, in science, maths, English, art and innovation.",
           { rows: 3, max: 300 },
         ),
-        link: f.link("Link", { label: "See all contests and programmes", href: "/academics#contests-title" }, { hint: BUTTON_HINT }),
+        link: f.link("Link", { label: "See all contests and programmes", href: "/competitions" }, { hint: BUTTON_HINT }),
         linkShort: f.text("Link text on phones", "See all contests", {
           max: 30,
           hint: "A shorter label for small screens. Leave empty to use the link label.",

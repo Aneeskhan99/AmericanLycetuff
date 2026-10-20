@@ -1,5 +1,6 @@
 import type { PageDef } from "@/lib/content";
 import { aboutPage } from "./about";
+import { competitionsPage } from "./competitions";
 import { academicsPage } from "./academics";
 import { admissionsPage } from "./admissions";
 import { contactPage } from "./contact";
@@ -20,6 +21,7 @@ export const PAGES: PageDef[] = [
   stemRoboticsPage,
   admissionsPage,
   galleryPage,
+  competitionsPage,
   contactPage,
   enquirePage,
   newsPage,

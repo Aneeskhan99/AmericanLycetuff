@@ -5,7 +5,9 @@ import { CmsLink, unoptimized } from "./ui";
 
 /** "Where Our Students Compete" contests strip (Figma 448:2323 desktop, 448:3200 mobile). */
 export default function Contests({ content: c }: { content: HomeContent["contests"] }) {
-  const hasLink = c.link.label && c.link.href;
+  // The link used to point at the Academics contests list; edits saved before the Competitions page existed still carry that address.
+  const href = c.link.href === "/academics#contests-title" ? "/competitions" : c.link.href;
+  const hasLink = c.link.label && href;
   return (
     <section aria-labelledby="home-contests-title" className="bg-white px-[24px] py-[56px] lg:px-[6vw] lg:py-[110px]">
       <div className="mx-auto max-w-[1330px]">
@@ -25,7 +27,7 @@ export default function Contests({ content: c }: { content: HomeContent["contest
           </div>
           {hasLink && (
             <CmsLink
-              href={c.link.href}
+              href={href}
               className="group hidden shrink-0 items-center gap-[12px] border-b-[1.5px] border-crimson py-[6px] font-inter font-medium whitespace-nowrap text-crimson transition-colors duration-200 hover:border-navy hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson lg:flex"
             >
               <span className="text-[15px] uppercase leading-[18px] tracking-[1.2px]">{c.link.label}</span>
@@ -63,7 +65,7 @@ export default function Contests({ content: c }: { content: HomeContent["contest
 
         {hasLink && (
           <CmsLink
-            href={c.link.href}
+            href={href}
             className="mt-[28px] flex w-full items-center justify-center border-[1.5px] border-crimson px-[20px] py-[17px] text-center font-inter text-[15.5px] font-medium uppercase leading-[19px] tracking-[1.5px] text-crimson transition-colors duration-200 hover:bg-crimson hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson lg:hidden"
           >
             {c.linkShort || c.link.label}
